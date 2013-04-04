@@ -8,6 +8,7 @@ import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.config.LoggingFactory;
 import com.yammer.dropwizard.util.Generics;
+import com.yammer.dropwizard.util.JarLocation;
 
 /**
  * The base class for Dropwizard services.
@@ -68,7 +69,7 @@ public abstract class Service<T extends Configuration> {
         bootstrap.addCommand(new ServerCommand<T>(this));
         bootstrap.addCommand(new CheckCommand<T>(this));
         initialize(bootstrap);
-        final Cli cli = new Cli(this.getClass(), bootstrap);
+        final Cli cli = new Cli(new JarLocation(getClass()), bootstrap);
         cli.run(arguments);
     }
 }

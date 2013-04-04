@@ -14,6 +14,10 @@ public class JarLocation {
         this.klass = klass;
     }
 
+    public Package getPackage() {
+        return klass.getPackage();
+    }
+
     @Override
     public String toString() {
         final URL location = klass.getProtectionDomain().getCodeSource().getLocation();

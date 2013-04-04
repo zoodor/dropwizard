@@ -11,4 +11,10 @@ public class JarLocationTest {
         assertThat(new JarLocation(JarLocationTest.class).toString())
                 .isEqualTo("project.jar");
     }
+
+    @Test
+    public void hasAPackage() throws Exception {
+        assertThat(new JarLocation(JarLocationTest.class).getPackage().getName())
+                .isEqualTo("com.yammer.dropwizard.util.tests");
+    }
 }
