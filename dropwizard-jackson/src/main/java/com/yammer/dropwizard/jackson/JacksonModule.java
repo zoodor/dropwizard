@@ -12,19 +12,15 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.collect.Maps;
-import com.google.inject.PrivateModule;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
-import com.google.inject.binder.AnnotatedBindingBuilder;
-import com.google.inject.binder.AnnotatedElementBuilder;
 import com.google.inject.name.Names;
+import com.yammer.dropwizard.guice.PrivateDropwizardModule;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
 
-public class JacksonModule extends PrivateModule {
-    private final Annotation annotation;
-    private final Class<? extends Annotation> annotationType;
+public class JacksonModule extends PrivateDropwizardModule {
     private final Map<MapperFeature, Boolean> mapperFeatures;
     private final Map<DeserializationFeature, Boolean> deserializationFeatures;
     private final Map<SerializationFeature, Boolean> serializationFeatures;
@@ -38,7 +34,7 @@ public class JacksonModule extends PrivateModule {
     }
 
     public JacksonModule(String name) {
-        this(Names.named(name), null);
+        this(Names.named(name));
     }
 
     public JacksonModule(Annotation annotation) {
@@ -50,8 +46,7 @@ public class JacksonModule extends PrivateModule {
     }
 
     private JacksonModule(Annotation annotation, Class<? extends Annotation> annotationType) {
-        this.annotation = annotation;
-        this.annotationType = annotationType;
+        super(annotation, annotationType);
         this.mapperFeatures = Maps.newLinkedHashMap();
         this.deserializationFeatures = Maps.newLinkedHashMap();
         this.serializationFeatures = Maps.newLinkedHashMap();
@@ -80,26 +75,9 @@ public class JacksonModule extends PrivateModule {
         bind(new TypeLiteral<Map<JsonFactory.Feature, Boolean>>(){}).toInstance(factoryFeatures);
         bind(new TypeLiteral<Map<PropertyAccessor, JsonAutoDetect.Visibility>>(){}).toInstance(visibilityRules);
 
-        bindObjectMapperProvider();
-    }
-
-    private void bindObjectMapperProvider() {
-        final AnnotatedBindingBuilder<ObjectMapper> binder = bind(ObjectMapper.class);
-        final AnnotatedElementBuilder expose = expose(ObjectMapper.class);
-        if (annotation == null && annotationType == null) {
-            binder.toProvider(ObjectMapperProvider.class)
-                  .in(Scopes.SINGLETON);
-        } else if (annotation != null) {
-            binder.annotatedWith(annotation)
-                  .toProvider(ObjectMapperProvider.class)
-                  .in(Scopes.SINGLETON);
-            expose.annotatedWith(annotation);
-        } else {
-            binder.annotatedWith(annotationType)
-                  .toProvider(ObjectMapperProvider.class)
-                  .in(Scopes.SINGLETON);
-            expose.annotatedWith(annotationType);
-        }
+        bindAndExpose(ObjectMapper.class)
+                .toProvider(ObjectMapperProvider.class)
+                .in(Scopes.SINGLETON);
     }
 
     protected void configureJackson() {
