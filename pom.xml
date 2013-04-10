@@ -17,6 +17,8 @@
     </description>
 
     <modules>
+        <module>dropwizard-guice</module>
+
         <module>dropwizard-core</module>
         <module>dropwizard-client</module>
         <module>dropwizard-db</module>
@@ -35,6 +37,7 @@
         <metrics.version>2.2.0</metrics.version>
         <jersey.version>1.17.1</jersey.version>
         <jackson.version>2.1.4</jackson.version>
+        <guava.version>14.0.1</guava.version>
     </properties>
 
     <developers>
