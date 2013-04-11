@@ -34,7 +34,7 @@ public class RoutingHandlerTest {
         }
     };
 
-    private final RoutingMapHandler handler = new RoutingMapHandler(ImmutableMap.of(connector1,
+    private final RoutingHandler handler = new RoutingHandler(ImmutableMap.of(connector1,
                                                                               handler1,
                                                                               connector2,
                                                                               handler2));
