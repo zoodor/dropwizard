@@ -38,7 +38,8 @@ public class DurationValidatorTest {
     @Test
     public void returnsASetOfErrorsForAnObject() throws Exception {
         if ("en".equals(Locale.getDefault().getLanguage())) {
-            assertThat(Util.formatViolations(validator.validate(new Example()))).containsOnly(
+            assertThat(ConstraintViolations.format(ConstraintViolations.typeErase(validator.validate(
+                    new Example())))).containsOnly(
                     "outOfRange must be between 10 MINUTES and 30 MINUTES (was 60 minutes)",
                     "tooBig must be less than or equal to 30 SECONDS (was 10 minutes)",
                     "tooSmall must be greater than or equal to 30 SECONDS (was 100 milliseconds)"

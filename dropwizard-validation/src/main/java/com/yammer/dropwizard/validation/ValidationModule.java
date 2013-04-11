@@ -5,6 +5,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 import javax.validation.Validation;
+import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 public class ValidationModule extends AbstractModule {
@@ -16,5 +17,10 @@ public class ValidationModule extends AbstractModule {
     @Singleton
     public ValidatorFactory provideValidatorFactory() {
         return Validation.buildDefaultValidatorFactory();
+    }
+
+    @Provides
+    public Validator provideValidator(ValidatorFactory factory) {
+        return factory.getValidator();
     }
 }

@@ -36,7 +36,7 @@ public class MethodValidatorTest {
 
     @Test
     public void complainsAboutMethodsWhichReturnFalse() throws Exception {
-        assertThat(Util.formatViolations(validator.validate(new Example()))).containsOnly(
+        assertThat(ConstraintViolations.format(ConstraintViolations.typeErase(validator.validate(new Example())))).containsOnly(
                 "must have a false thing",
                 "subExample also needs something special"
         );

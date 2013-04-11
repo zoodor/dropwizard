@@ -40,7 +40,8 @@ public class SizeValidatorTest {
     @Test
     public void returnsASetOfErrorsForAnObject() throws Exception {
         if ("en".equals(Locale.getDefault().getLanguage())) {
-            assertThat(Util.formatViolations(validator.validate(new Example()))).containsOnly(
+            assertThat(ConstraintViolations.format(ConstraintViolations.typeErase(validator.validate(
+                    new Example())))).containsOnly(
                     "outOfRange must be between 10 KILOBYTES and 100 KILOBYTES (was 2 megabytes)",
                     "tooBig must be less than or equal to 30 KILOBYTES (was 2 gigabytes)",
                     "tooSmall must be greater than or equal to 30 KILOBYTES (was 100 bytes)"

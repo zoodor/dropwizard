@@ -41,7 +41,8 @@ public class PortRangeValidatorTest {
     public void rejectsNegativePorts() throws Exception {
         example.port = -1;
 
-        assertThat(Util.formatViolations(validator.validate(example)))
+        assertThat(ConstraintViolations.format(ConstraintViolations.typeErase(validator.validate(
+                example))))
                 .containsOnly("port must be between 1025 and 65535 (was -1)");
     }
 
@@ -49,7 +50,8 @@ public class PortRangeValidatorTest {
     public void rejectsPrivilegedPorts() throws Exception {
         example.port = 80;
 
-        assertThat(Util.formatViolations(validator.validate(example)))
+        assertThat(ConstraintViolations.format(ConstraintViolations.typeErase(validator.validate(
+                example))))
                 .containsOnly("port must be between 1025 and 65535 (was 80)");
     }
 
@@ -57,7 +59,8 @@ public class PortRangeValidatorTest {
     public void allowsForCustomMinimumPorts() throws Exception {
         example.otherPort = 8080;
 
-        assertThat(Util.formatViolations(validator.validate(example)))
+        assertThat(ConstraintViolations.format(ConstraintViolations.typeErase(validator.validate(
+                example))))
                 .containsOnly("otherPort must be between 10000 and 15000 (was 8080)");
     }
 
@@ -65,7 +68,8 @@ public class PortRangeValidatorTest {
     public void allowsForCustomMaximumPorts() throws Exception {
         example.otherPort = 16000;
 
-        assertThat(Util.formatViolations(validator.validate(example)))
+        assertThat(ConstraintViolations.format(ConstraintViolations.typeErase(validator.validate(
+                example))))
                 .containsOnly("otherPort must be between 10000 and 15000 (was 16000)");
     }
 }
