@@ -19,6 +19,7 @@
     <modules>
         <module>dropwizard-guice</module>
         <module>dropwizard-jackson</module>
+        <module>dropwizard-jetty</module>
 
         <module>dropwizard-core</module>
         <module>dropwizard-client</module>
