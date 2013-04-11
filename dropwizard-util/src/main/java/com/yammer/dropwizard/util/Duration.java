@@ -13,14 +13,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Duration {
     private static final Pattern PATTERN = Pattern.compile("[\\d]+[\\s]*(" +
-            "ns|nanosecond(s)?|" +
-            "us|microsecond(s)?|" +
-            "ms|millisecond(s)?|" +
-            "s|second(s)?|" +
-            "m|minute(s)?|" +
-            "h|hour(s)?|" +
-            "d|day(s)?" +
-            ')');
+                                                                   "ns|nanosecond(s)?|" +
+                                                                   "us|microsecond(s)?|" +
+                                                                   "ms|millisecond(s)?|" +
+                                                                   "s|second(s)?|" +
+                                                                   "m|minute(s)?|" +
+                                                                   "h|hour(s)?|" +
+                                                                   "d|day(s)?" +
+                                                                   ')');
     private static final ImmutableMap<String, TimeUnit> SUFFIXES;
 
     static {
@@ -30,6 +30,7 @@ public class Duration {
         suffixes.put("nanosecond", TimeUnit.NANOSECONDS);
         suffixes.put("nanoseconds", TimeUnit.NANOSECONDS);
 
+        suffixes.put("μs", TimeUnit.MICROSECONDS);
         suffixes.put("us", TimeUnit.MICROSECONDS);
         suffixes.put("microsecond", TimeUnit.MICROSECONDS);
         suffixes.put("microseconds", TimeUnit.MICROSECONDS);
@@ -56,7 +57,7 @@ public class Duration {
 
         SUFFIXES = suffixes.build();
     }
-    
+
     public static Duration nanoseconds(long count) {
         return new Duration(count, TimeUnit.NANOSECONDS);
     }
@@ -84,13 +85,13 @@ public class Duration {
     public static Duration days(long count) {
         return new Duration(count, TimeUnit.DAYS);
     }
-    
+
     private static long parseCount(String s) {
         checkArgument(PATTERN.matcher(s).matches(), "Invalid duration: %s", s);
         final String value = CharMatcher.WHITESPACE.removeFrom(s);
         return Long.parseLong(CharMatcher.JAVA_LETTER.trimTrailingFrom(value));
     }
-    
+
     private static TimeUnit parseUnit(String s) {
         final String value = CharMatcher.WHITESPACE.removeFrom(s);
         final String suffix = CharMatcher.DIGIT.trimLeadingFrom(value);

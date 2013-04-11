@@ -38,8 +38,8 @@ public enum SizeUnit {
     /**
      * Converts a size of the given unit into the current unit.
      *
-     * @param size    the magnitude of the size
-     * @param unit    the unit of the size
+     * @param size the magnitude of the size
+     * @param unit the unit of the size
      * @return the given size in the current unit.
      */
     public long convert(long size, SizeUnit unit) {
@@ -49,7 +49,7 @@ public enum SizeUnit {
     /**
      * Converts the given number of the current units into bytes.
      *
-     * @param l    the magnitude of the size in the current unit
+     * @param l the magnitude of the size in the current unit
      * @return {@code l} of the current units in bytes
      */
     public long toBytes(long l) {
@@ -59,7 +59,7 @@ public enum SizeUnit {
     /**
      * Converts the given number of the current units into kilobytes.
      *
-     * @param l    the magnitude of the size in the current unit
+     * @param l the magnitude of the size in the current unit
      * @return {@code l} of the current units in kilobytes
      */
     public long toKilobytes(long l) {
@@ -69,7 +69,7 @@ public enum SizeUnit {
     /**
      * Converts the given number of the current units into megabytes.
      *
-     * @param l    the magnitude of the size in the current unit
+     * @param l the magnitude of the size in the current unit
      * @return {@code l} of the current units in megabytes
      */
     public long toMegabytes(long l) {
@@ -79,7 +79,7 @@ public enum SizeUnit {
     /**
      * Converts the given number of the current units into gigabytes.
      *
-     * @param l    the magnitude of the size in the current unit
+     * @param l the magnitude of the size in the current unit
      * @return {@code l} of the current units in bytes
      */
     public long toGigabytes(long l) {
@@ -89,7 +89,7 @@ public enum SizeUnit {
     /**
      * Converts the given number of the current units into terabytes.
      *
-     * @param l    the magnitude of the size in the current unit
+     * @param l the magnitude of the size in the current unit
      * @return {@code l} of the current units in terabytes
      */
     public long toTerabytes(long l) {

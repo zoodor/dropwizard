@@ -1,6 +1,5 @@
-package com.yammer.dropwizard.util.tests;
+package com.yammer.dropwizard.util;
 
-import com.yammer.dropwizard.util.SizeUnit;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;

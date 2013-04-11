@@ -1,6 +1,6 @@
-package com.yammer.dropwizard.util.tests;
+package com.yammer.dropwizard.util;
 
-import com.yammer.dropwizard.util.Duration;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -155,5 +155,21 @@ public class DurationTest {
     public void hasAUnit() throws Exception {
         assertThat(Duration.microseconds(1).getUnit())
                 .isEqualTo(TimeUnit.MICROSECONDS);
+    }
+
+    @Test
+    public void isConvertibleFromAJsonString() throws Exception {
+        final ObjectMapper mapper = new ObjectMapper();
+
+        assertThat(mapper.readValue("\"5 seconds\"", Duration.class))
+                .isEqualTo(Duration.seconds(5));
+    }
+
+    @Test
+    public void isConvertibleToAJsonString() throws Exception {
+        final ObjectMapper mapper = new ObjectMapper();
+
+        assertThat(mapper.writeValueAsString(Duration.seconds(5)))
+                .isEqualTo("\"5 seconds\"");
     }
 }

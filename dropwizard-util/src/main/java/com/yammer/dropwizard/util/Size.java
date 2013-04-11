@@ -47,7 +47,7 @@ public class Size {
 
         SUFFIXES = suffixes.build();
     }
-    
+
     public static Size bytes(long count) {
         return new Size(count, SizeUnit.BYTES);
     }
