@@ -1,14 +1,13 @@
-package com.yammer.dropwizard.validation.tests;
+package com.yammer.dropwizard.validation;
 
-import com.yammer.dropwizard.validation.ValidationMethod;
-import com.yammer.dropwizard.validation.Validator;
 import org.junit.Test;
 
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-@SuppressWarnings({"FieldMayBeFinal","MethodMayBeStatic","UnusedDeclaration"})
 public class MethodValidatorTest {
     public static class SubExample {
         @ValidationMethod(message = "also needs something special")
@@ -19,23 +18,27 @@ public class MethodValidatorTest {
 
     public static class Example {
         @Valid
-        private SubExample subExample = new SubExample();
+        @SuppressWarnings("UnusedDeclaration")
+        private final SubExample subExample = new SubExample();
 
         @ValidationMethod(message = "must have a false thing")
-        public boolean isFalse() {
+        public boolean isNotOK() {
             return false;
         }
 
         @ValidationMethod(message = "must have a true thing")
-        public boolean isTrue() {
+        public boolean isOK() {
             return true;
         }
     }
 
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
     @Test
     public void complainsAboutMethodsWhichReturnFalse() throws Exception {
-        assertThat(new Validator().validate(new Example()))
-                .containsOnly("must have a false thing",
-                              "subExample also needs something special");
+        assertThat(Util.formatViolations(validator.validate(new Example()))).containsOnly(
+                "must have a false thing",
+                "subExample also needs something special"
+        );
     }
 }

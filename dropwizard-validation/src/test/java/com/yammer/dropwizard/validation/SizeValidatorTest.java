@@ -1,13 +1,11 @@
-package com.yammer.dropwizard.validation.tests;
+package com.yammer.dropwizard.validation;
 
 import com.yammer.dropwizard.util.Size;
 import com.yammer.dropwizard.util.SizeUnit;
-import com.yammer.dropwizard.validation.MaxSize;
-import com.yammer.dropwizard.validation.MinSize;
-import com.yammer.dropwizard.validation.SizeRange;
-import com.yammer.dropwizard.validation.Validator;
 import org.junit.Test;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.Locale;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -20,30 +18,33 @@ public class SizeValidatorTest {
 
         @MinSize(value = 30, unit = SizeUnit.KILOBYTES)
         private Size tooSmall = Size.bytes(100);
-        
+
         @SizeRange(min = 10, max = 100, unit = SizeUnit.KILOBYTES)
         private Size outOfRange = Size.megabytes(2);
 
         public void setTooBig(Size tooBig) {
             this.tooBig = tooBig;
         }
+
         public void setTooSmall(Size tooSmall) {
             this.tooSmall = tooSmall;
         }
+
         public void setOutOfRange(Size outOfRange) {
             this.outOfRange = outOfRange;
         }
     }
 
-    private final Validator validator = new Validator();
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     public void returnsASetOfErrorsForAnObject() throws Exception {
         if ("en".equals(Locale.getDefault().getLanguage())) {
-            assertThat(validator.validate(new Example()))
-                    .containsOnly("outOfRange must be between 10 KILOBYTES and 100 KILOBYTES (was 2 megabytes)",
-                                  "tooBig must be less than or equal to 30 KILOBYTES (was 2 gigabytes)",
-                                  "tooSmall must be greater than or equal to 30 KILOBYTES (was 100 bytes)");
+            assertThat(Util.formatViolations(validator.validate(new Example()))).containsOnly(
+                    "outOfRange must be between 10 KILOBYTES and 100 KILOBYTES (was 2 megabytes)",
+                    "tooBig must be less than or equal to 30 KILOBYTES (was 2 gigabytes)",
+                    "tooSmall must be greater than or equal to 30 KILOBYTES (was 100 bytes)"
+            );
         }
     }
 

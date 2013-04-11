@@ -1,13 +1,10 @@
-package com.yammer.dropwizard.validation.tests;
+package com.yammer.dropwizard.validation;
 
-import com.google.common.collect.ImmutableList;
 import com.yammer.dropwizard.util.Duration;
-import com.yammer.dropwizard.validation.DurationRange;
-import com.yammer.dropwizard.validation.MaxDuration;
-import com.yammer.dropwizard.validation.MinDuration;
-import com.yammer.dropwizard.validation.Validator;
 import org.junit.Test;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -36,18 +33,16 @@ public class DurationValidatorTest {
         }
     }
 
-    private final Validator validator = new Validator();
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     public void returnsASetOfErrorsForAnObject() throws Exception {
         if ("en".equals(Locale.getDefault().getLanguage())) {
-            final ImmutableList<String> errors = validator.validate(new Example());
-
-            assertThat(errors)
-                    .containsOnly(
-                            "outOfRange must be between 10 MINUTES and 30 MINUTES (was 60 minutes)",
-                            "tooBig must be less than or equal to 30 SECONDS (was 10 minutes)",
-                            "tooSmall must be greater than or equal to 30 SECONDS (was 100 milliseconds)");
+            assertThat(Util.formatViolations(validator.validate(new Example()))).containsOnly(
+                    "outOfRange must be between 10 MINUTES and 30 MINUTES (was 60 minutes)",
+                    "tooBig must be less than or equal to 30 SECONDS (was 10 minutes)",
+                    "tooSmall must be greater than or equal to 30 SECONDS (was 100 milliseconds)"
+            );
         }
     }
 
