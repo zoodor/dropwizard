@@ -1,6 +1,5 @@
 package com.yammer.dropwizard.jetty;
 
-import com.google.common.collect.ImmutableMap;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
@@ -13,12 +12,30 @@ import java.io.IOException;
 import java.util.Map;
 
 public class RoutingHandler extends AbstractHandler {
-    private final ImmutableMap<Connector, Handler> handlers;
+    /**
+     * We use an array of entries instead of a map here for performance reasons. We're only ever
+     * comparing connectors by reference, not by equality, so avoiding the overhead of a map is
+     * a lot faster. See RoutingHandlerBenchmark for details, but tested against an
+     * ImmutableMap-backed implementation it was ~54us vs. ~4500us for 1,000,000 iterations.
+     */
+    private static class Entry {
+        final Connector connector;
+        final Handler handler;
+
+        private Entry(Connector connector, Handler handler) {
+            this.connector = connector;
+            this.handler = handler;
+        }
+    }
+
+    private final Entry[] entries;
 
     public RoutingHandler(Map<Connector, Handler> handlers) {
-        this.handlers = ImmutableMap.copyOf(handlers);
-        for (Handler handler : handlers.values()) {
-            addBean(handler);
+        this.entries = new Entry[handlers.size()];
+        int i = 0;
+        for (Map.Entry<Connector, Handler> entry : handlers.entrySet()) {
+            this.entries[i++] = new Entry(entry.getKey(), entry.getValue());
+            addBean(entry.getValue());
         }
     }
 
@@ -27,8 +44,14 @@ public class RoutingHandler extends AbstractHandler {
                        Request baseRequest,
                        HttpServletRequest request,
                        HttpServletResponse response) throws IOException, ServletException {
-        handlers.get(baseRequest.getHttpChannel().getConnector())
-                .handle(target, baseRequest, request, response);
+        final Connector connector = baseRequest.getHttpChannel().getConnector();
+        for (Entry entry : entries) {
+            // reference equality works fine — none of the connectors implement #equals(Object)
+            if (entry.connector == connector) {
+                entry.handler.handle(target, baseRequest, request, response);
+                return;
+            }
+        }
     }
 }
 
