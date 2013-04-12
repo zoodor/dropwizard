@@ -10,12 +10,12 @@ import com.sun.jersey.test.framework.LowLevelAppDescriptor;
 import com.yammer.dropwizard.jersey.DropwizardResourceConfig;
 import com.yammer.dropwizard.jersey.JacksonMessageBodyProvider;
 import com.yammer.dropwizard.json.ObjectMapperFactory;
-import com.yammer.dropwizard.validation.Validator;
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,7 +35,7 @@ public abstract class ResourceTest {
     private final Map<String, Object> properties = Maps.newHashMap();
 
     private JerseyTest test;
-    private Validator validator = new Validator();
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     protected abstract void setUpResources() throws Exception;
 
