@@ -1,5 +1,8 @@
 package com.yammer.dropwizard.jackson;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.ImmutableList;
@@ -16,8 +19,24 @@ import javax.validation.ConstraintViolation;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class JacksonModuleTest {
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+    public interface Thing {
+
+    }
+
+    @JsonTypeName("named")
+    public static class NamedThing implements Thing {
+        @JsonProperty
+        String name;
+    }
+
     private final Injector injector = Guice.createInjector(
-            new JacksonModule(),
+            new JacksonModule() {
+                @Override
+                protected void configureJackson() {
+                    registerSubtype(NamedThing.class);
+                }
+            },
             new JacksonModule("woo"),
             new JacksonModule("config")
     );
@@ -68,5 +87,16 @@ public class JacksonModuleTest {
         final ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
         assertThat(mapper.canSerialize(ConstraintViolation.class))
                 .isTrue();
+    }
+
+    @Test
+    public void registersSubTypes() throws Exception {
+        final ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
+
+        final Thing thing = mapper.readValue("{\"type\":\"named\",\"name\":\"Happy\"}", Thing.class);
+        assertThat(thing)
+                .isInstanceOf(NamedThing.class);
+        assertThat(((NamedThing) thing).name)
+                .isEqualTo("Happy");
     }
 }

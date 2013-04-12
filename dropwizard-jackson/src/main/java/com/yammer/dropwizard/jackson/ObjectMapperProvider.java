@@ -25,6 +25,7 @@ import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 @SuppressWarnings("FieldMayBeFinal")
@@ -37,6 +38,7 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
     private final Map<JsonParser.Feature, Boolean> parserFeatures;
     private final Map<JsonFactory.Feature, Boolean> factoryFeatures;
     private final Map<PropertyAccessor, JsonAutoDetect.Visibility> visibilityRules;
+    private final Set<Class<?>> subTypes;
 
     @Inject(optional = true) private PropertyNamingStrategy propertyNamingStrategy =
             new AnnotationSensitivePropertyNamingStrategy();
@@ -65,7 +67,8 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
                                 Map<JsonGenerator.Feature, Boolean> generatorFeatures,
                                 Map<JsonParser.Feature, Boolean> parserFeatures,
                                 Map<JsonFactory.Feature, Boolean> factoryFeatures,
-                                Map<PropertyAccessor, JsonAutoDetect.Visibility> visibilityRules) {
+                                Map<PropertyAccessor, JsonAutoDetect.Visibility> visibilityRules,
+                                Set<Class<?>> subTypes) {
         this.injector = injector;
         this.mapperFeatures = mapperFeatures;
         this.deserializationFeatures = deserializationFeatures;
@@ -74,6 +77,7 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
         this.parserFeatures = parserFeatures;
         this.factoryFeatures = factoryFeatures;
         this.visibilityRules = visibilityRules;
+        this.subTypes = subTypes;
     }
 
     @Override
@@ -164,6 +168,10 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
 
         if (subtypeResolver != null) {
             mapper.setSubtypeResolver(subtypeResolver);
+        }
+
+        for (Class<?> klass : subTypes) {
+            mapper.getSubtypeResolver().registerSubtypes(klass);
         }
 
         if (timeZone != null) {

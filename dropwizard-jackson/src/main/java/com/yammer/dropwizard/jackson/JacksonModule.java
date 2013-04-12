@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
@@ -19,6 +20,7 @@ import com.yammer.dropwizard.guice.PrivateDropwizardModule;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
+import java.util.Set;
 
 public class JacksonModule extends PrivateDropwizardModule {
     private final Map<MapperFeature, Boolean> mapperFeatures;
@@ -28,6 +30,7 @@ public class JacksonModule extends PrivateDropwizardModule {
     private final Map<JsonParser.Feature, Boolean> parserFeatures;
     private final Map<JsonFactory.Feature, Boolean> factoryFeatures;
     private final Map<PropertyAccessor, JsonAutoDetect.Visibility> visibilityRules;
+    private final Set<Class<?>> subTypes;
 
     public JacksonModule() {
         this(null, null);
@@ -54,6 +57,7 @@ public class JacksonModule extends PrivateDropwizardModule {
         this.parserFeatures = Maps.newLinkedHashMap();
         this.factoryFeatures = Maps.newLinkedHashMap();
         this.visibilityRules = Maps.newLinkedHashMap();
+        this.subTypes = Sets.newHashSet();
     }
 
     @Override
@@ -75,6 +79,7 @@ public class JacksonModule extends PrivateDropwizardModule {
         bind(new TypeLiteral<Map<JsonParser.Feature, Boolean>>(){}).toInstance(parserFeatures);
         bind(new TypeLiteral<Map<JsonFactory.Feature, Boolean>>(){}).toInstance(factoryFeatures);
         bind(new TypeLiteral<Map<PropertyAccessor, JsonAutoDetect.Visibility>>(){}).toInstance(visibilityRules);
+        bind(new TypeLiteral<Set<Class<?>>>() {}).toInstance(subTypes);
 
         bindAndExpose(ObjectMapper.class)
                 .toProvider(ObjectMapperProvider.class)
@@ -83,6 +88,10 @@ public class JacksonModule extends PrivateDropwizardModule {
 
     protected void configureJackson() {
 
+    }
+
+    protected final void registerSubtype(Class<?> klass) {
+        subTypes.add(klass);
     }
 
     protected final void enable(JsonParser.Feature... features) {
