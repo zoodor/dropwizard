@@ -8,5 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public interface LoggingOutput {
-    Appender<ILoggingEvent> build(LoggerContext context, String serviceName, Layout<ILoggingEvent> layout);
+    Appender<ILoggingEvent> build(LoggerContext context,
+                                  String serviceName,
+                                  Layout<ILoggingEvent> layout);
 }
