@@ -61,6 +61,7 @@ public class JacksonModule extends PrivateDropwizardModule {
         bind(GuavaModule.class);
         bind(GuavaExtrasModule.class);
         bind(JodaModule.class);
+        bind(ValidationModule.class);
 
         enable(JsonParser.Feature.ALLOW_COMMENTS);
         disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

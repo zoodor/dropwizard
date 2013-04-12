@@ -1,7 +1,7 @@
 package com.yammer.dropwizard.jackson;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.ImmutableList;
 import com.google.common.net.HostAndPort;
 import com.google.inject.Guice;
@@ -10,6 +10,8 @@ import com.google.inject.Key;
 import com.google.inject.name.Names;
 import org.joda.time.DateTime;
 import org.junit.Test;
+
+import javax.validation.ConstraintViolation;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -40,25 +42,31 @@ public class JacksonModuleTest {
     @Test
     public void includesGuavaSupport() throws Exception {
         final ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
-
-        final ImmutableList<String> list = mapper.readValue("[]", new TypeReference<ImmutableList<String>>() {});
-        assertThat(list)
-                .isEmpty();
+        final TypeFactory typeFactory = mapper.getTypeFactory();
+        assertThat(mapper.canDeserialize(typeFactory.constructType(ImmutableList.class)))
+                .isTrue();
     }
 
     @Test
     public void includesGuavaExtrasSupport() throws Exception {
         final ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
-
-        assertThat(mapper.readValue("\"example.com:8080\"", HostAndPort.class))
-                .isEqualTo(HostAndPort.fromParts("example.com", 8080));
+        final TypeFactory typeFactory = mapper.getTypeFactory();
+        assertThat(mapper.canDeserialize(typeFactory.constructType(HostAndPort.class)))
+                .isTrue();
     }
 
     @Test
     public void includesJodaTimeSupport() throws Exception {
         final ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
+        final TypeFactory typeFactory = mapper.getTypeFactory();
+        assertThat(mapper.canDeserialize(typeFactory.constructType(DateTime.class)))
+                .isTrue();
+    }
 
-        assertThat(mapper.writeValueAsString(new DateTime(-100)))
-                .isEqualTo("-100");
+    @Test
+    public void includesValidationSupport() throws Exception {
+        final ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
+        assertThat(mapper.canSerialize(ConstraintViolation.class))
+                .isTrue();
     }
 }
