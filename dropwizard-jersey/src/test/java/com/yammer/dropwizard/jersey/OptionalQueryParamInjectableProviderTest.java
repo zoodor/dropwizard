@@ -1,12 +1,12 @@
-package com.yammer.dropwizard.jersey.tests;
+package com.yammer.dropwizard.jersey;
 
 import com.google.common.base.Optional;
+import com.sun.jersey.api.core.DefaultResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.LowLevelAppDescriptor;
-import com.yammer.dropwizard.jersey.DropwizardResourceConfig;
 import org.junit.Test;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,11 +17,6 @@ import javax.ws.rs.core.MediaType;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class OptionalQueryParamInjectableProviderTest extends JerseyTest {
-    static {
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-        SLF4JBridgeHandler.install();
-    }
-
     @Path("/test/")
     @Produces(MediaType.TEXT_PLAIN)
     public static class ExampleResource {
@@ -33,7 +28,8 @@ public class OptionalQueryParamInjectableProviderTest extends JerseyTest {
 
     @Override
     protected AppDescriptor configure() {
-        final DropwizardResourceConfig config = new DropwizardResourceConfig(true);
+        final ResourceConfig config = new DefaultResourceConfig();
+        config.getClasses().add(OptionalQueryParamInjectableProvider.class);
         config.getSingletons().add(new ExampleResource());
         return new LowLevelAppDescriptor.Builder(config).build();
     }

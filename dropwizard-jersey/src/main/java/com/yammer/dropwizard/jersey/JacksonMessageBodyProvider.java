@@ -3,12 +3,13 @@ package com.yammer.dropwizard.jersey;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import com.google.common.collect.ImmutableList;
-import com.yammer.dropwizard.validation.InvalidEntityException;
+import com.yammer.dropwizard.validation.ConstraintViolations;
 import com.yammer.dropwizard.validation.Validated;
-import com.yammer.dropwizard.validation.Validator;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import javax.validation.Validator;
 import javax.validation.groups.Default;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.Set;
 
 /**
  * A Jersey provider which enables using Jackson to parse request entities into objects and generate
@@ -70,10 +72,9 @@ public class JacksonMessageBodyProvider extends JacksonJaxbJsonProvider {
         final Class<?>[] classes = findValidationGroups(annotations);
 
         if (classes != null) {
-            final ImmutableList<String> errors = validator.validate(value, classes);
-            if (!errors.isEmpty()) {
-                throw new InvalidEntityException("The request entity had the following errors:",
-                                                 errors);
+            final Set<ConstraintViolation<Object>> violations = validator.validate(value, classes);
+            if (!violations.isEmpty()) {
+                throw new ConstraintViolationException(ConstraintViolations.typeErase(violations));
             }
         }
 

@@ -1,14 +1,13 @@
-package com.yammer.dropwizard.jersey.caching.tests;
+package com.yammer.dropwizard.jersey.caching;
 
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.core.DefaultResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.LowLevelAppDescriptor;
-import com.yammer.dropwizard.jersey.DropwizardResourceConfig;
-import com.yammer.dropwizard.jersey.caching.CacheControl;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,11 +19,6 @@ import java.util.concurrent.TimeUnit;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class CacheControlledResourceMethodDispatchAdapterTest extends JerseyTest {
-    static {
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-        SLF4JBridgeHandler.install();
-    }
-
     @Path("/test/")
     @Produces(MediaType.TEXT_PLAIN)
     public static class ExampleResource {
@@ -100,7 +94,8 @@ public class CacheControlledResourceMethodDispatchAdapterTest extends JerseyTest
 
     @Override
     protected AppDescriptor configure() {
-        final DropwizardResourceConfig config = new DropwizardResourceConfig(true);
+        final ResourceConfig config = new DefaultResourceConfig();
+        config.getClasses().add(CacheControlledResourceMethodDispatchAdapter.class);
         config.getSingletons().add(new ExampleResource());
         return new LowLevelAppDescriptor.Builder(config).build();
     }

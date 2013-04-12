@@ -1,4 +1,4 @@
-package com.yammer.dropwizard.jersey.params.tests;
+package com.yammer.dropwizard.jersey.params;
 
 import com.yammer.dropwizard.jersey.params.BooleanParam;
 import org.junit.Test;

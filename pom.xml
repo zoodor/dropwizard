@@ -22,7 +22,8 @@
         <module>dropwizard-jetty</module>
         <module>dropwizard-util</module>
         <module>dropwizard-validation</module>
-
+        <module>dropwizard-jersey</module>
+        
         <module>dropwizard-core</module>
         <module>dropwizard-client</module>
         <module>dropwizard-db</module>

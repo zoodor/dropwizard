@@ -1,6 +1,10 @@
-package com.yammer.dropwizard.jersey.params.tests;
+package com.yammer.dropwizard.jersey.params;
+
+import java.util.UUID;
 
 import com.yammer.dropwizard.jersey.params.LongParam;
+import com.yammer.dropwizard.jersey.params.UUIDParam;
+
 import org.junit.Test;
 
 import javax.ws.rs.WebApplicationException;
@@ -9,20 +13,23 @@ import javax.ws.rs.core.Response;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
 
-public class LongParamTest {
-    @Test
-    public void aLongReturnsALong() throws Exception {
-        final LongParam param = new LongParam("200");
+public class UUIDParamTest {
 
+    @Test
+    public void aUUIDStringReturnsAUUIDObject() throws Exception {
+        final String uuidString = "067e6162-3b6f-4ae2-a171-2470b63dff00";
+        final UUID uuid = UUID.fromString(uuidString);
+
+        final UUIDParam param = new UUIDParam(uuidString);
         assertThat(param.get())
-                .isEqualTo(200L);
+                .isEqualTo(uuid);
     }
 
     @Test
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
-    public void aNonIntegerThrowsAnException() throws Exception {
+    public void aNonUUIDThrowsAnException() throws Exception {
         try {
-            new LongParam("foo");
+            new UUIDParam("foo");
             failBecauseExceptionWasNotThrown(WebApplicationException.class);
         } catch (WebApplicationException e) {
             final Response response = e.getResponse();
@@ -31,7 +38,7 @@ public class LongParamTest {
                     .isEqualTo(400);
 
             assertThat((String) response.getEntity())
-                    .isEqualTo("\"foo\" is not a number.");
+                    .isEqualTo("\"foo\" is not a UUID.");
         }
     }
 }
