@@ -6,11 +6,11 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 import com.yammer.dropwizard.jersey.DropwizardResourceConfig;
 import com.yammer.dropwizard.json.ObjectMapperFactory;
 import com.yammer.dropwizard.setup.*;
-import com.yammer.dropwizard.validation.Validator;
 import com.yammer.metrics.core.HealthCheck;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
+import javax.validation.Validator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 

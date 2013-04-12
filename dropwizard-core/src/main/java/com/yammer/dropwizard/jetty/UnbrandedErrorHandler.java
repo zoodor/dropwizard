@@ -1,10 +1,11 @@
 package com.yammer.dropwizard.jetty;
 
 import com.google.common.collect.ImmutableList;
-import com.yammer.dropwizard.validation.InvalidEntityException;
+import com.yammer.dropwizard.validation.ConstraintViolations;
 import org.eclipse.jetty.server.handler.ErrorHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -38,14 +39,14 @@ public class UnbrandedErrorHandler extends ErrorHandler {
         }
     }
 
-    public void writeValidationErrorPage(HttpServletRequest request, StringWriter writer, InvalidEntityException exception) throws IOException {
+    public void writeValidationErrorPage(HttpServletRequest request, StringWriter writer, ConstraintViolationException exception) throws IOException {
         writer.write("<html>\n<head>\n");
         writeErrorPageHead(request, writer, 422, "Unprocessable Entity");
         writer.write("</head>\n<body>");
         writeInvalidationErrorPageBody(request,
                                        writer,
                                        exception.getMessage(),
-                                       exception.getErrors());
+                                       ConstraintViolations.format(exception.getConstraintViolations()));
         writer.write("\n</body>\n</html>\n");
     }
 

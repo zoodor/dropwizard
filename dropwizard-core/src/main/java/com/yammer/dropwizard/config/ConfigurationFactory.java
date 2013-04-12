@@ -12,14 +12,17 @@ import com.google.common.collect.ImmutableList;
 import com.sun.jersey.spi.service.ServiceFinder;
 import com.yammer.dropwizard.json.ObjectMapperFactory;
 import com.yammer.dropwizard.logging.LoggingOutput;
-import com.yammer.dropwizard.validation.Validator;
+import com.yammer.dropwizard.validation.ConstraintViolations;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class ConfigurationFactory<T> {
 
@@ -110,9 +113,9 @@ public class ConfigurationFactory<T> {
     }
 
     private void validate(String file, T config) throws ConfigurationException {
-        final ImmutableList<String> errors = validator.validate(config);
-        if (!errors.isEmpty()) {
-            throw new ConfigurationException(file, errors);
+        final Set<ConstraintViolation<T>> violations = validator.validate(config);
+        if (!violations.isEmpty()) {
+            throw new ConfigurationException(file, ConstraintViolations.format(ConstraintViolations.typeErase(violations)));
         }
     }
 }

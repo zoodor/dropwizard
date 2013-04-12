@@ -15,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
+import javax.validation.Validation;
 import java.util.Map;
 import java.util.Set;
 
@@ -95,7 +96,7 @@ public abstract class ResourceTest {
                     config.getProperties().put(property.getKey(), property.getValue());
                 }
                 final ObjectMapper mapper = getObjectMapperFactory().build();
-                config.getSingletons().add(new JacksonMessageBodyProvider(mapper, validator));
+                config.getSingletons().add(new JacksonMessageBodyProvider(mapper, Validation.buildDefaultValidatorFactory().getValidator()));
                 config.getSingletons().addAll(singletons);
                 return new LowLevelAppDescriptor.Builder(config).build();
             }

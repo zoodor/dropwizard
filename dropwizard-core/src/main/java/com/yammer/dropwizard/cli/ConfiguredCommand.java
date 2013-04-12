@@ -4,10 +4,10 @@ import com.yammer.dropwizard.config.*;
 import com.yammer.dropwizard.config.provider.ConfigurationSourceProvider;
 import com.yammer.dropwizard.json.ObjectMapperFactory;
 import com.yammer.dropwizard.util.Generics;
-import com.yammer.dropwizard.validation.Validator;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 
+import javax.validation.Validation;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -76,7 +76,10 @@ public abstract class ConfiguredCommand<T extends Configuration> extends Command
                                  Class<T> configurationClass,
                                  ObjectMapperFactory objectMapperFactory) throws IOException, ConfigurationException {
         final ConfigurationFactory<T> configurationFactory =
-                ConfigurationFactory.forClass(configurationClass, new Validator(), objectMapperFactory);
+                ConfigurationFactory.forClass(configurationClass,
+                                              Validation.buildDefaultValidatorFactory()
+                                                        .getValidator(),
+                                              objectMapperFactory);
 
         if (configurationPath != null) {
             final InputStream input = configurationProvider.create(configurationPath);

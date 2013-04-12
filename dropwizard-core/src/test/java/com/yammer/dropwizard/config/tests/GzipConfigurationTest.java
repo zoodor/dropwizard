@@ -5,10 +5,10 @@ import com.google.common.io.Resources;
 import com.yammer.dropwizard.config.ConfigurationFactory;
 import com.yammer.dropwizard.config.GzipConfiguration;
 import com.yammer.dropwizard.util.Size;
-import com.yammer.dropwizard.validation.Validator;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.validation.Validation;
 import java.io.File;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -18,7 +18,9 @@ public class GzipConfigurationTest {
 
     @Before
     public void setUp() throws Exception {
-        this.gzip = ConfigurationFactory.forClass(GzipConfiguration.class, new Validator())
+        this.gzip = ConfigurationFactory.forClass(GzipConfiguration.class,
+                                                  Validation.buildDefaultValidatorFactory()
+                                                            .getValidator())
                                         .build(new File(Resources.getResource("yaml/gzip.yml").toURI()));
     }
 

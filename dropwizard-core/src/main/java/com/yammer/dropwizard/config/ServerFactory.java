@@ -41,6 +41,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.DispatcherType;
+import javax.validation.Validation;
 import java.io.File;
 import java.net.URI;
 import java.security.KeyStore;
@@ -351,7 +352,7 @@ public class ServerFactory {
         if (jerseyContainer != null) {
             env.getJerseyEnvironment().addProvider(
                     new JacksonMessageBodyProvider(env.getJsonEnvironment().build(),
-                                                   env.getValidator())
+                                                   Validation.buildDefaultValidatorFactory().getValidator())
             );
             final ServletHolder jerseyHolder = new NonblockingServletHolder(jerseyContainer);
             jerseyHolder.setInitOrder(Integer.MAX_VALUE);

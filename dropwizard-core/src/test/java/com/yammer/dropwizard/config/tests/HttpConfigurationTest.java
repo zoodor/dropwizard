@@ -6,10 +6,10 @@ import com.yammer.dropwizard.config.ConfigurationFactory;
 import com.yammer.dropwizard.config.HttpConfiguration;
 import com.yammer.dropwizard.util.Duration;
 import com.yammer.dropwizard.util.Size;
-import com.yammer.dropwizard.validation.Validator;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.validation.Validation;
 import java.io.File;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -19,7 +19,8 @@ public class HttpConfigurationTest {
 
     @Before
     public void setUp() throws Exception {
-        this.http = ConfigurationFactory.forClass(HttpConfiguration.class, new Validator())
+        this.http = ConfigurationFactory.forClass(HttpConfiguration.class,
+                                                  Validation.buildDefaultValidatorFactory().getValidator())
                                         .build(new File(Resources.getResource("yaml/http.yml").toURI()));
     }
 
