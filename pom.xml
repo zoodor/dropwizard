@@ -24,6 +24,7 @@
         <module>dropwizard-validation</module>
         <module>dropwizard-jersey</module>
         <module>dropwizard-cli</module>
+        <module>dropwizard-config</module>
 
         <module>dropwizard-core</module>
         <module>dropwizard-client</module>

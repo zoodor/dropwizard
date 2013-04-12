@@ -1,4 +1,4 @@
-package com.yammer.dropwizard.config.provider;
+package com.yammer.dropwizard.config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,7 @@ import java.io.InputStream;
  * An interface for objects that can create an {@link InputStream} to represent the service
  * configuration.
  */
-public interface ConfigurationSourceProvider {
+public interface SourceProvider {
     /**
      * Returns an {@link InputStream} that contains the source of the configuration for the
      * service.

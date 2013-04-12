@@ -3,6 +3,7 @@ package com.yammer.dropwizard.config.tests;
 import com.google.common.io.Resources;
 import com.yammer.dropwizard.config.ConfigurationFactory;
 import com.yammer.dropwizard.config.RequestLogConfiguration;
+import com.yammer.dropwizard.json.ObjectMapperFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,10 +18,14 @@ public class RequestLogConfigurationTest {
 
     @Before
     public void setUp() throws Exception {
-        this.requestLog = ConfigurationFactory.forClass(RequestLogConfiguration.class,
-                                                        Validation.buildDefaultValidatorFactory()
-                                                                  .getValidator())
-                                              .build(new File(Resources.getResource("yaml/requestLog.yml").toURI()));
+        final ConfigurationFactory<RequestLogConfiguration> factory =
+                new ConfigurationFactory<RequestLogConfiguration>(Validation.buildDefaultValidatorFactory()
+                                                                      .getValidator(),
+                                                                  RequestLogConfiguration.class,
+                                                            new ObjectMapperFactory().build(),
+                                                            "dw");
+
+        this.requestLog = factory.build(new File(Resources.getResource("yaml/requestLog.yml").toURI()));
     }
 
     @Test

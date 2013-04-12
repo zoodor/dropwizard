@@ -1,7 +1,7 @@
 package com.yammer.dropwizard.cli;
 
 import com.yammer.dropwizard.config.*;
-import com.yammer.dropwizard.config.provider.ConfigurationSourceProvider;
+import com.yammer.dropwizard.config.SourceProvider;
 import com.yammer.dropwizard.json.ObjectMapperFactory;
 import com.yammer.dropwizard.util.Generics;
 import net.sourceforge.argparse4j.inf.Namespace;
@@ -71,15 +71,15 @@ public abstract class ConfiguredCommand<T extends Configuration> extends Command
                                 Namespace namespace,
                                 T configuration) throws Exception;
 
-    private T parseConfiguration(ConfigurationSourceProvider configurationProvider,
+    private T parseConfiguration(SourceProvider configurationProvider,
                                  String configurationPath,
                                  Class<T> configurationClass,
                                  ObjectMapperFactory objectMapperFactory) throws IOException, ConfigurationException {
         final ConfigurationFactory<T> configurationFactory =
-                ConfigurationFactory.forClass(configurationClass,
-                                              Validation.buildDefaultValidatorFactory()
-                                                        .getValidator(),
-                                              objectMapperFactory);
+                new ConfigurationFactory<T>(Validation.buildDefaultValidatorFactory().getValidator(),
+                                            configurationClass,
+                                            objectMapperFactory.build(),
+                                            "dw");
 
         if (configurationPath != null) {
             final InputStream input = configurationProvider.create(configurationPath);

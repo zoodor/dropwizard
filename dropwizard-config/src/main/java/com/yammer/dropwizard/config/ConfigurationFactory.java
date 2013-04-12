@@ -1,6 +1,5 @@
 package com.yammer.dropwizard.config;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -8,12 +7,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
-import com.sun.jersey.spi.service.ServiceFinder;
-import com.yammer.dropwizard.json.ObjectMapperFactory;
-import com.yammer.dropwizard.logging.LoggingOutput;
 import com.yammer.dropwizard.validation.ConstraintViolations;
 
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.io.File;
@@ -25,42 +21,27 @@ import java.util.Map;
 import java.util.Set;
 
 public class ConfigurationFactory<T> {
-
-    private static final String PROPERTY_PREFIX = "dw.";
-
-    public static <T> ConfigurationFactory<T> forClass(Class<T> klass,
-                                                       Validator validator,
-                                                       ObjectMapperFactory objectMapperFactory) {
-        return new ConfigurationFactory<T>(klass, validator, objectMapperFactory);
-    }
-
-    public static <T> ConfigurationFactory<T> forClass(Class<T> klass, Validator validator) {
-        return new ConfigurationFactory<T>(klass, validator, new ObjectMapperFactory());
-    }
-
-    private static final ImmutableList<Class<?>> EXTENSIBLE_CLASSES = ImmutableList.<Class<?>>of(
-            LoggingOutput.class
-    );
-
+    private final Validator validator;
     private final Class<T> klass;
     private final ObjectMapper mapper;
-    private final Validator validator;
+    private final String propertyPrefix;
+    private final YAMLFactory yamlFactory;
 
-    private ConfigurationFactory(Class<T> klass, Validator validator, ObjectMapperFactory objectMapperFactory) {
-        this.klass = klass;
-        objectMapperFactory.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        this.mapper = objectMapperFactory.build(new YAMLFactory());
-        for (Class<?> extensibleClass : EXTENSIBLE_CLASSES) {
-            mapper.getSubtypeResolver()
-                  .registerSubtypes(ServiceFinder.find(extensibleClass)
-                                                 .toClassArray());
-        }
+    @Inject
+    public ConfigurationFactory(Validator validator,
+                                Class<T> klass,
+                                ObjectMapper mapper,
+                                String propertyPrefix) {
         this.validator = validator;
+        this.klass = klass;
+        this.mapper = mapper;
+        this.propertyPrefix = propertyPrefix.endsWith(".") ? propertyPrefix : propertyPrefix + '.';
+        this.yamlFactory = new YAMLFactory();
     }
 
     public T build(String configurationPath, InputStream inputStream) throws IOException, ConfigurationException {
-        final JsonNode node = mapper.readTree(inputStream);
-        return build(node, configurationPath != null ? configurationPath : "InputStream configuration");
+        final JsonNode node = mapper.readTree(yamlFactory.createJsonParser(inputStream));
+        return build(node, configurationPath != null ? configurationPath : "configuration");
     }
 
     public T build(File file) throws IOException, ConfigurationException {
@@ -73,14 +54,14 @@ public class ConfigurationFactory<T> {
     }
 
     public T build() throws IOException, ConfigurationException {
-        return build(JsonNodeFactory.instance.objectNode(), "The default configuration");
+        return build(JsonNodeFactory.instance.objectNode(), "default configuration");
     }
 
     private T build(JsonNode node, String filename) throws IOException, ConfigurationException {
         for (Map.Entry<Object, Object> pref : System.getProperties().entrySet()) {
             final String prefName = (String) pref.getKey();
-            if (prefName.startsWith(PROPERTY_PREFIX)) {
-                final String configName = prefName.substring(PROPERTY_PREFIX.length());
+            if (prefName.startsWith(propertyPrefix)) {
+                final String configName = prefName.substring(propertyPrefix.length());
                 addOverride(node, configName, System.getProperty(prefName));
             }
         }
@@ -115,7 +96,7 @@ public class ConfigurationFactory<T> {
     private void validate(String file, T config) throws ConfigurationException {
         final Set<ConstraintViolation<T>> violations = validator.validate(config);
         if (!violations.isEmpty()) {
-            throw new ConfigurationException(file, ConstraintViolations.format(ConstraintViolations.typeErase(violations)));
+            throw new ConfigurationException(file, ConstraintViolations.typeErase(violations));
         }
     }
 }

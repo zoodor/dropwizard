@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Resources;
 import com.yammer.dropwizard.config.ConfigurationFactory;
 import com.yammer.dropwizard.config.LoggingConfiguration;
+import com.yammer.dropwizard.json.ObjectMapperFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,8 +16,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public class LoggingConfigurationTest {
     private final ConfigurationFactory<LoggingConfiguration> factory =
-            ConfigurationFactory.forClass(LoggingConfiguration.class,
-                                          Validation.buildDefaultValidatorFactory().getValidator());
+            new ConfigurationFactory<LoggingConfiguration>(Validation.buildDefaultValidatorFactory().getValidator(),
+                                                           LoggingConfiguration.class,
+                                                           new ObjectMapperFactory().build(),
+                                                           "dw");
     private LoggingConfiguration config;
 
     @Before

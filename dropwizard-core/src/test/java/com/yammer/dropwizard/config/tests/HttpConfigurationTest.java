@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.google.common.io.Resources;
 import com.yammer.dropwizard.config.ConfigurationFactory;
 import com.yammer.dropwizard.config.HttpConfiguration;
+import com.yammer.dropwizard.json.ObjectMapperFactory;
 import com.yammer.dropwizard.util.Duration;
 import com.yammer.dropwizard.util.Size;
 import org.junit.Before;
@@ -19,9 +20,13 @@ public class HttpConfigurationTest {
 
     @Before
     public void setUp() throws Exception {
-        this.http = ConfigurationFactory.forClass(HttpConfiguration.class,
-                                                  Validation.buildDefaultValidatorFactory().getValidator())
-                                        .build(new File(Resources.getResource("yaml/http.yml").toURI()));
+        final ConfigurationFactory<HttpConfiguration> factory =
+                new ConfigurationFactory<HttpConfiguration>(Validation.buildDefaultValidatorFactory()
+                                                                      .getValidator(),
+                                                            HttpConfiguration.class,
+                                                            new ObjectMapperFactory().build(),
+                                                            "dw");
+        this.http = factory.build(new File(Resources.getResource("yaml/http.yml").toURI()));
     }
 
     @Test

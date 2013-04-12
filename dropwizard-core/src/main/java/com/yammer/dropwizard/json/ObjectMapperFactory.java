@@ -20,6 +20,8 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.sun.jersey.spi.service.ServiceFinder;
+import com.yammer.dropwizard.logging.LoggingOutput;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -643,6 +645,7 @@ public class ObjectMapperFactory {
             mapper.setVisibilityChecker(visibilityChecker);
         }
 
+        mapper.registerSubtypes(ServiceFinder.find(LoggingOutput.class).toClassArray());
 
         return mapper;
     }

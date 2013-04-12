@@ -1,12 +1,12 @@
-package com.yammer.dropwizard.config.provider;
+package com.yammer.dropwizard.config;
 
 import java.io.*;
 
 /**
- * An implementation of {@link ConfigurationSourceProvider} that reads the configuration from the
+ * An implementation of {@link SourceProvider} that reads the configuration from the
  * local file system.
  */
-public class FileConfigurationSourceProvider implements ConfigurationSourceProvider {
+public class FileSourceProvider implements SourceProvider {
     @Override
     public InputStream create(String path) throws IOException {
         final File file = new File(path);

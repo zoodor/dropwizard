@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Resources;
 import com.yammer.dropwizard.config.ConfigurationFactory;
 import com.yammer.dropwizard.config.GzipConfiguration;
+import com.yammer.dropwizard.json.ObjectMapperFactory;
 import com.yammer.dropwizard.util.Size;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,10 +19,14 @@ public class GzipConfigurationTest {
 
     @Before
     public void setUp() throws Exception {
-        this.gzip = ConfigurationFactory.forClass(GzipConfiguration.class,
-                                                  Validation.buildDefaultValidatorFactory()
-                                                            .getValidator())
-                                        .build(new File(Resources.getResource("yaml/gzip.yml").toURI()));
+        final ConfigurationFactory<GzipConfiguration> factory =
+                new ConfigurationFactory<GzipConfiguration>(Validation.buildDefaultValidatorFactory()
+                                                                      .getValidator(),
+                                                            GzipConfiguration.class,
+                                                            new ObjectMapperFactory().build(),
+                                                            "dw");
+
+        this.gzip = factory.build(new File(Resources.getResource("yaml/gzip.yml").toURI()));
     }
 
     @Test
