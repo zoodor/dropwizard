@@ -3,6 +3,7 @@ package com.yammer.dropwizard.config;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
+import com.yammer.dropwizard.logging.LoggingConfiguration;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

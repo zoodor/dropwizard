@@ -4,7 +4,7 @@ import ch.qos.logback.classic.Level;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Resources;
 import com.yammer.dropwizard.config.ConfigurationFactory;
-import com.yammer.dropwizard.config.LoggingConfiguration;
+import com.yammer.dropwizard.logging.LoggingConfiguration;
 import com.yammer.dropwizard.json.ObjectMapperFactory;
 import org.junit.Before;
 import org.junit.Test;

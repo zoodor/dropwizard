@@ -1,11 +1,9 @@
-package com.yammer.dropwizard.config;
+package com.yammer.dropwizard.logging;
 
 import ch.qos.logback.classic.Level;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.yammer.dropwizard.logging.ConsoleLoggingOutput;
-import com.yammer.dropwizard.logging.LoggingOutput;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,7 +12,7 @@ import java.util.TimeZone;
 
 @SuppressWarnings("UnusedDeclaration")
 public class LoggingConfiguration {
-    static final TimeZone UTC = TimeZone.getTimeZone("UTC");
+    private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
     @NotNull
     @JsonProperty

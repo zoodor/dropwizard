@@ -9,9 +9,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.TimeZone;
 
-import static com.yammer.dropwizard.config.LoggingConfiguration.*;
-
 public class RequestLogConfiguration {
+    private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
+
     @NotNull
     @JsonProperty
     private TimeZone timeZone = UTC;

@@ -4,11 +4,11 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.config.LoggingFactory;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.db.ManagedDataSource;
 import com.yammer.dropwizard.jdbi.DBIFactory;
 import com.yammer.dropwizard.lifecycle.Managed;
+import com.yammer.dropwizard.logging.Logging;
 import com.yammer.dropwizard.setup.AdminEnvironment;
 import com.yammer.dropwizard.setup.LifecycleEnvironment;
 import org.junit.After;
@@ -33,7 +33,7 @@ public class JDBITest {
     private final DatabaseConfiguration hsqlConfig = new DatabaseConfiguration();
 
     {
-        LoggingFactory.bootstrap();
+        Logging.bootstrap();
         hsqlConfig.setUrl("jdbc:hsqldb:mem:DbTest-" + System.currentTimeMillis());
         hsqlConfig.setUser("sa");
         hsqlConfig.setDriverClass("org.hsqldb.jdbcDriver");

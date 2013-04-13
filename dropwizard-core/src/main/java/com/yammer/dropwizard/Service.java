@@ -6,7 +6,7 @@ import com.yammer.dropwizard.cli.ServerCommand;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.config.LoggingFactory;
+import com.yammer.dropwizard.logging.Logging;
 import com.yammer.dropwizard.util.Generics;
 import com.yammer.dropwizard.util.JarLocation;
 
@@ -18,7 +18,7 @@ import com.yammer.dropwizard.util.JarLocation;
 public abstract class Service<T extends Configuration> {
     static {
         // make sure spinning up Hibernate Validator doesn't yell at us
-        LoggingFactory.bootstrap();
+        Logging.bootstrap();
     }
 
     /**

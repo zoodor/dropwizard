@@ -3,6 +3,7 @@ package com.yammer.dropwizard.cli;
 import com.yammer.dropwizard.config.*;
 import com.yammer.dropwizard.config.SourceProvider;
 import com.yammer.dropwizard.json.ObjectMapperFactory;
+import com.yammer.dropwizard.logging.LoggingFactory;
 import com.yammer.dropwizard.util.Generics;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
