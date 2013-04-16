@@ -1,0 +1,9 @@
+enabled: false
+minimumEntitySize: 1KiB
+bufferSize: 1MiB
+excludedUserAgents:
+  - one
+  - two
+compressedMimeTypes:
+  - three
+  - four
