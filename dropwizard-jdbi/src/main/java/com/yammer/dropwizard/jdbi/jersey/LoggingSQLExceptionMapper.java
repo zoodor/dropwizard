@@ -1,6 +1,6 @@
 package com.yammer.dropwizard.jdbi.jersey;
 
-import com.yammer.dropwizard.jersey.LoggingExceptionMapper;
+import com.yammer.dropwizard.jersey.errors.LoggingExceptionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

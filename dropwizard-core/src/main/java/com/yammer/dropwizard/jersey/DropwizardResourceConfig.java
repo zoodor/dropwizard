@@ -2,7 +2,8 @@ package com.yammer.dropwizard.jersey;
 
 import com.sun.jersey.api.core.ScanningResourceConfig;
 import com.yammer.dropwizard.jersey.caching.CacheControlledResourceMethodDispatchAdapter;
-import com.yammer.dropwizard.jersey.validation.ConstraintViolationExceptionMapper;
+import com.yammer.dropwizard.jersey.errors.ConstraintViolationExceptionMapper;
+import com.yammer.dropwizard.jersey.errors.LoggingExceptionMapper;
 import com.yammer.metrics.jersey.InstrumentedResourceMethodDispatchAdapter;
 
 public class DropwizardResourceConfig extends ScanningResourceConfig {
