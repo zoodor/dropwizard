@@ -3,6 +3,7 @@ package com.yammer.dropwizard.jersey;
 import com.sun.jersey.api.core.ScanningResourceConfig;
 import com.yammer.dropwizard.jersey.caching.CacheControlledResourceMethodDispatchAdapter;
 import com.yammer.dropwizard.jersey.errors.ConstraintViolationExceptionMapper;
+import com.yammer.dropwizard.jersey.errors.JacksonExceptionMapper;
 import com.yammer.dropwizard.jersey.errors.LoggingExceptionMapper;
 import com.yammer.metrics.jersey.InstrumentedResourceMethodDispatchAdapter;
 
@@ -14,7 +15,7 @@ public class DropwizardResourceConfig extends ScanningResourceConfig {
             // create a subclass to pin it to Throwable
             getSingletons().add(new LoggingExceptionMapper<Throwable>() {});
             getSingletons().add(new ConstraintViolationExceptionMapper());
-            getSingletons().add(new JsonProcessingExceptionMapper());
+            getSingletons().add(new JacksonExceptionMapper());
         }
         getClasses().add(InstrumentedResourceMethodDispatchAdapter.class);
         getClasses().add(CacheControlledResourceMethodDispatchAdapter.class);
