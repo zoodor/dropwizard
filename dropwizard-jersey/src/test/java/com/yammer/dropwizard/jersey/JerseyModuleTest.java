@@ -6,7 +6,7 @@ import com.yammer.dropwizard.jersey.resources.ExampleProvider;
 import com.yammer.dropwizard.jersey.resources.ExampleResource;
 import com.yammer.dropwizard.jersey.resources.LastResource;
 import com.yammer.dropwizard.jersey.resources.OtherResource;
-import com.yammer.dropwizard.jersey.validation.ConstraintViolationExceptionMapper;
+import com.yammer.dropwizard.jersey.errors.ConstraintViolationExceptionMapper;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlet.ServletMapping;

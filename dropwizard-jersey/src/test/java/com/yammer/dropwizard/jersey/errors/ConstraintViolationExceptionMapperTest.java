@@ -1,4 +1,4 @@
-package com.yammer.dropwizard.jersey.validation;
+package com.yammer.dropwizard.jersey.errors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.UniformInterfaceException;
@@ -9,6 +9,7 @@ import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.LowLevelAppDescriptor;
 import com.yammer.dropwizard.jackson.ValidationModule;
 import com.yammer.dropwizard.jersey.JacksonMessageBodyProvider;
+import com.yammer.dropwizard.jersey.errors.ConstraintViolationExceptionMapper;
 import com.yammer.dropwizard.validation.ConstraintViolations;
 import org.junit.Test;
 

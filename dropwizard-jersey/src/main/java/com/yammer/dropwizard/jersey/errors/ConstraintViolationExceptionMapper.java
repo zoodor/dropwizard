@@ -1,4 +1,4 @@
-package com.yammer.dropwizard.jersey.validation;
+package com.yammer.dropwizard.jersey.errors;
 
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;
