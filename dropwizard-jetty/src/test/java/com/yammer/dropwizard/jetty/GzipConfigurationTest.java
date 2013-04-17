@@ -6,7 +6,6 @@ import com.google.common.io.Resources;
 import com.google.inject.Guice;
 import com.yammer.dropwizard.config.ConfigurationFactory;
 import com.yammer.dropwizard.jackson.JacksonModule;
-import com.yammer.dropwizard.logging.Logging;
 import com.yammer.dropwizard.util.Size;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,10 +16,6 @@ import java.io.File;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class GzipConfigurationTest {
-    static {
-        Logging.bootstrap();
-    }
-
     private final GzipConfiguration defaultConfig = new GzipConfiguration();
     private GzipConfiguration config;
 

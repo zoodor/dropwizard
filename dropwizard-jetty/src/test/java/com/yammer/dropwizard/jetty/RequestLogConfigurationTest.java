@@ -6,7 +6,6 @@ import com.google.inject.Guice;
 import com.yammer.dropwizard.config.ConfigurationFactory;
 import com.yammer.dropwizard.jackson.JacksonModule;
 import com.yammer.dropwizard.logging.ConsoleLoggingOutput;
-import com.yammer.dropwizard.logging.Logging;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,10 +16,6 @@ import java.util.TimeZone;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class RequestLogConfigurationTest {
-    static {
-        Logging.bootstrap();
-    }
-
     private final RequestLogConfiguration defaultConfig = new RequestLogConfiguration();
     private RequestLogConfiguration config;
 

@@ -2,7 +2,6 @@ package com.yammer.dropwizard.jetty;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteStreams;
-import com.yammer.dropwizard.logging.Logging;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpTester;
 import org.eclipse.jetty.http.HttpVersion;
@@ -29,10 +28,6 @@ import java.util.zip.GZIPOutputStream;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class BiDiGzipHandlerTest {
-    static {
-        Logging.bootstrap();
-    }
-
     private final Handler handler = new AbstractHandler() {
         @Override
         public void handle(String target,
