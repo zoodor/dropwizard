@@ -164,6 +164,25 @@ public class CommandLineParserTest {
     }
 
     @Test
+    public void automaticallyHandlesErrors() throws Exception {
+        final Optional<CommandLineParser.Invocation> invocation = parser.parse("one", "--two");
+
+        assertThat(invocation.isPresent())
+                .isFalse();
+
+        assertThat(output.toString())
+                .isEqualTo(
+                        "unrecognized arguments: '--two'\n"+
+                                "usage: java -jar project.jar one [-h]\n" +
+                                '\n' +
+                                "first command\n" +
+                                '\n' +
+                                "optional arguments:\n" +
+                                "  -h, --help             show this help message and exit\n"
+                );
+    }
+
+    @Test
     public void parsesArgumentsToInvocations() throws Exception {
         final Optional<CommandLineParser.Invocation> optional = parser.parse("two", "filename");
 

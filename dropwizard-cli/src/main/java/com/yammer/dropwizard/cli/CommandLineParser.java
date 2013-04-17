@@ -77,7 +77,7 @@ public class CommandLineParser {
         }
     }
 
-    public Optional<Invocation> parse(String... arguments) throws ArgumentParserException {
+    public Optional<Invocation> parse(String... arguments) {
         // assume -h if no arguments are given
         if (arguments.length == 0 || (arguments.length == 1 && ("-h".equals(arguments[0]) || "--help".equals(arguments[0])))) {
             parser.printHelp(output);
@@ -89,13 +89,19 @@ public class CommandLineParser {
             return Optional.absent();
         }
 
-        final Namespace namespace = parser.parseArgs(arguments);
-        if (namespace.get("is-internal-action") != null) {
+        try {
+            final Namespace namespace = parser.parseArgs(arguments);
+            if (namespace.get("is-internal-action") != null) {
+                return Optional.absent();
+            }
+
+            final Command.Description description = descriptions.get(namespace.getString(COMMAND_NAME_ATTR));
+            return Optional.of(new Invocation(namespace, description.getCommandClass()));
+        } catch (ArgumentParserException e) {
+            output.println(e.getMessage());
+            e.getParser().printHelp(output);
             return Optional.absent();
         }
-
-        final Command.Description description = descriptions.get(namespace.getString(COMMAND_NAME_ATTR));
-        return Optional.of(new Invocation(namespace, description.getCommandClass()));
     }
 
     private void addCommand(Command.Description command) {
