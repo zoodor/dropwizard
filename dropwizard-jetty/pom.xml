@@ -13,7 +13,7 @@
     <artifactId>dropwizard-jetty</artifactId>
 
     <properties>
-        <jetty.version>9.0.1.v20130408</jetty.version>
+        <jetty.version>9.0.2.v20130417</jetty.version>
     </properties>
 
     <dependencies>
