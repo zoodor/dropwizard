@@ -63,7 +63,7 @@ public class ServletModuleTest {
                     .dispatcher(DispatcherType.REQUEST)
                     .initParam("one", "two");
 
-            filter("/*").through(ExampleFilter.class);
+            filter("/*").through(ExampleFilter.class).named("example-filter");
 
             serve("/manual")
                     .with(new ExampleServlet("manual"))
@@ -72,7 +72,7 @@ public class ServletModuleTest {
                     .runAsRole("role")
                     .userLink("name", "link");
 
-            serve("/*").with(ExampleServlet.class);
+            serve("/*").with(ExampleServlet.class).named("example");
         }
     });
 
@@ -116,6 +116,12 @@ public class ServletModuleTest {
 
         assertThat(((ExampleFilter) holder.getFilter()).getValue())
                 .isEqualTo("injected");
+
+        assertThat(holder.getName())
+                .isEqualTo("example-filter");
+
+        assertThat(holder.getDisplayName())
+                .isEqualTo("example-filter");
     }
 
     @Test
@@ -154,5 +160,11 @@ public class ServletModuleTest {
                 .isInstanceOf(ExampleServlet.class);
         assertThat(((ExampleServlet) holder.getServletInstance()).getValue())
                 .isEqualTo("injected");
+
+        assertThat(holder.getName())
+                .isEqualTo("example");
+
+        assertThat(holder.getDisplayName())
+                .isEqualTo("example");
     }
 }

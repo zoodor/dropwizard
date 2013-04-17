@@ -43,6 +43,12 @@ public class FilterBuilder {
         return this;
     }
 
+    public FilterBuilder named(String name) {
+        holder.setName(name);
+        holder.setDisplayName(name);
+        return this;
+    }
+
     FilterHolder getHolder() {
         return holder;
     }

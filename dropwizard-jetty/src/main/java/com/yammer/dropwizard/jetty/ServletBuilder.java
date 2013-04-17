@@ -48,6 +48,12 @@ public class ServletBuilder {
         return this;
     }
 
+    public ServletBuilder named(String name) {
+        holder.setName(name);
+        holder.setDisplayName(name);
+        return this;
+    }
+
     ServletHolder getHolder() {
         return holder;
     }
