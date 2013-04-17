@@ -8,6 +8,7 @@ import org.junit.Test;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class ContextRoutingHandlerTest {
@@ -15,15 +16,15 @@ public class ContextRoutingHandlerTest {
     private final HttpServletRequest request = mock(HttpServletRequest.class);
     private final HttpServletResponse response = mock(HttpServletResponse.class);
 
-    private final ContextHandler handler1 = mock(ContextHandler.class);
-    private final ContextHandler handler2 = mock(ContextHandler.class);
+    private final ContextHandler handler1 = spy(new ContextHandler());
+    private final ContextHandler handler2 = spy(new ContextHandler());
 
     private ContextRoutingHandler handler;
 
     @Before
     public void setUp() throws Exception {
-        when(handler1.getContextPath()).thenReturn("/");
-        when(handler2.getContextPath()).thenReturn("/admin");
+        handler1.setContextPath("/");
+        handler2.setContextPath("/admin");
 
         this.handler = new ContextRoutingHandler(handler1, handler2);
     }
@@ -46,5 +47,23 @@ public class ContextRoutingHandlerTest {
 
         verify(handler1, never()).handle("WAT", baseRequest, request, response);
         verify(handler2, never()).handle("WAT", baseRequest, request, response);
+    }
+
+    @Test
+    public void startsAndStopsAllHandlers() throws Exception {
+        handler.start();
+        try {
+            assertThat(handler1.isStarted())
+                    .isTrue();
+            assertThat(handler2.isStarted())
+                    .isTrue();
+        } finally {
+            handler.stop();
+        }
+
+        assertThat(handler1.isStopped())
+                .isTrue();
+        assertThat(handler2.isStopped())
+                .isTrue();
     }
 }

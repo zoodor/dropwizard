@@ -5,7 +5,7 @@ import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.HttpChannel;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import org.junit.Test;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,22 +17,8 @@ import static org.mockito.Mockito.*;
 public class RoutingHandlerTest {
     private final Connector connector1 = mock(Connector.class);
     private final Connector connector2 = mock(Connector.class);
-    private final Handler handler1 = spy(new AbstractHandler() {
-        @Override
-        public void handle(String target,
-                           Request baseRequest,
-                           HttpServletRequest request,
-                           HttpServletResponse response) {
-        }
-    });
-    private final Handler handler2 = new AbstractHandler() {
-        @Override
-        public void handle(String target,
-                           Request baseRequest,
-                           HttpServletRequest request,
-                           HttpServletResponse response) {
-        }
-    };
+    private final Handler handler1 = spy(new ContextHandler());
+    private final Handler handler2 = spy(new ContextHandler());
 
     private final RoutingHandler handler = new RoutingHandler(ImmutableMap.of(connector1,
                                                                               handler1,
