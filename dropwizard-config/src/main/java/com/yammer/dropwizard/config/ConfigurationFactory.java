@@ -22,14 +22,14 @@ import java.util.Set;
 
 public class ConfigurationFactory<T> {
     private final Validator validator;
-    private final Class<T> klass;
+    private final Class<?> klass;
     private final ObjectMapper mapper;
     private final String propertyPrefix;
     private final YAMLFactory yamlFactory;
 
     @Inject
     public ConfigurationFactory(Validator validator,
-                                Class<T> klass,
+                                Class<?> klass,
                                 ObjectMapper mapper,
                                 String propertyPrefix) {
         this.validator = validator;
@@ -57,6 +57,7 @@ public class ConfigurationFactory<T> {
         return build(JsonNodeFactory.instance.objectNode(), "default configuration");
     }
 
+    @SuppressWarnings("unchecked")
     private T build(JsonNode node, String filename) throws IOException, ConfigurationException {
         for (Map.Entry<Object, Object> pref : System.getProperties().entrySet()) {
             final String prefName = (String) pref.getKey();
@@ -65,7 +66,7 @@ public class ConfigurationFactory<T> {
                 addOverride(node, configName, System.getProperty(prefName));
             }
         }
-        final T config = mapper.readValue(new TreeTraversingParser(node), klass);
+        final T config = (T) mapper.readValue(new TreeTraversingParser(node), klass);
         validate(filename, config);
         return config;
     }
