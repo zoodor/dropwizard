@@ -12,10 +12,6 @@
 
     <artifactId>dropwizard-jetty</artifactId>
 
-    <properties>
-        <jetty.version>9.0.2.v20130417</jetty.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.codahale.dropwizard</groupId>

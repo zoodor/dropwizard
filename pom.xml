@@ -28,6 +28,7 @@
         <module>dropwizard-logging</module>
         <module>dropwizard-server</module>
         <module>dropwizard-servlets</module>
+        <module>dropwizard-lifecycle</module>
 
         <module>dropwizard-core</module>
         <module>dropwizard-client</module>
@@ -50,6 +51,7 @@
         <guava.version>14.0.1</guava.version>
         <slf4j.version>1.7.5</slf4j.version>
         <logback.version>1.0.11</logback.version>
+        <jetty.version>9.0.2.v20130417</jetty.version>
     </properties>
 
     <developers>
