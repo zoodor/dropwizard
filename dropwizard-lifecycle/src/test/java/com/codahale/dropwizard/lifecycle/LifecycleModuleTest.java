@@ -38,4 +38,10 @@ public class LifecycleModuleTest {
         assertThat(injector.getInstance(Example.class).isStopped())
                 .isTrue();
     }
+
+    @Test
+    public void createsASingletonLifecycleManager() throws Exception {
+        assertThat(injector.getInstance(LifecycleManager.class))
+                .isSameAs(injector.getInstance(LifecycleManager.class));
+    }
 }
