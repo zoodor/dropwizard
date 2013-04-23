@@ -10,6 +10,7 @@ import com.yammer.dropwizard.jetty.ServletModule;
 
 import javax.ws.rs.core.MediaType;
 
+import java.lang.annotation.Annotation;
 import java.util.Locale;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -19,7 +20,30 @@ import static com.sun.jersey.api.core.ResourceConfig.isRootResourceClass;
 
 public abstract class JerseyModule extends ServletModule {
     private final ResourceConfig config = new DefaultResourceConfig();
-    private String urlSpec = "/*";
+    private String urlSpec;
+
+    protected JerseyModule() {
+        this("/*");
+    }
+
+    protected JerseyModule(String urlSpec) {
+        this.urlSpec = urlSpec;
+    }
+
+    protected JerseyModule(String name, String urlSpec) {
+        super(name);
+        this.urlSpec = urlSpec;
+    }
+
+    protected JerseyModule(Annotation annotation, String urlSpec) {
+        super(annotation);
+        this.urlSpec = urlSpec;
+    }
+
+    protected JerseyModule(Class<? extends Annotation> annotationType, String urlSpec) {
+        super(annotationType);
+        this.urlSpec = urlSpec;
+    }
 
     @Override
     protected final void configureServlets() {

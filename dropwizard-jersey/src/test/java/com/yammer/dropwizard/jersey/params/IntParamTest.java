@@ -1,6 +1,5 @@
 package com.yammer.dropwizard.jersey.params;
 
-import com.yammer.dropwizard.jersey.params.IntParam;
 import org.junit.Test;
 
 import javax.ws.rs.WebApplicationException;

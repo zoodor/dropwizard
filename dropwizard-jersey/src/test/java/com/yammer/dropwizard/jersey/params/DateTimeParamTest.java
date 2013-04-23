@@ -1,6 +1,5 @@
 package com.yammer.dropwizard.jersey.params;
 
-import com.yammer.dropwizard.jersey.params.DateTimeParam;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;

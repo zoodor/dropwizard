@@ -1,14 +1,10 @@
 package com.yammer.dropwizard.jersey.params;
 
-import java.util.UUID;
-
-import com.yammer.dropwizard.jersey.params.LongParam;
-import com.yammer.dropwizard.jersey.params.UUIDParam;
-
 import org.junit.Test;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.util.UUID;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
