@@ -32,10 +32,10 @@ public class ConfigurationFactoryTest {
 
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     private final ConfigurationFactory<Example> factory =
-            new ConfigurationFactory<Example>(validator,
-                                              Example.class,
-                                              new ObjectMapper(),
-                                              "dw-config-test");
+            new ConfigurationFactory<>(validator,
+                                       Example.class,
+                                       new ObjectMapper(),
+                                       "dw-config-test");
 
     private File malformedFile;
     private File invalidFile;

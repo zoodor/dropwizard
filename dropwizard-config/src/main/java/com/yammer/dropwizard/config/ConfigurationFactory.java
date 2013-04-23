@@ -45,11 +45,8 @@ public class ConfigurationFactory<T> {
     }
 
     public T build(File file) throws IOException, ConfigurationException {
-        final FileInputStream input = new FileInputStream(file);
-        try {
+        try (FileInputStream input = new FileInputStream(file)) {
             return build(file.toString(), input);
-        } finally {
-            input.close();
         }
     }
 
