@@ -1,7 +1,7 @@
 language: java
 
 # don't just run the tests, also run Findbugs and friends
-script: mvn verify
+script: mvn clean test findbugs:check
 
 jdk:
   - oraclejdk7
