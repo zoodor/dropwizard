@@ -1,6 +1,5 @@
-package com.yammer.dropwizard.util.tests;
+package com.codahale.dropwizard.servlets;
 
-import com.yammer.dropwizard.util.Servlets;
 import org.junit.Before;
 import org.junit.Test;
 

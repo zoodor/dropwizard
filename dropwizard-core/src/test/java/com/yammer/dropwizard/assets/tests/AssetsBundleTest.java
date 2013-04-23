@@ -1,9 +1,9 @@
 package com.yammer.dropwizard.assets.tests;
 
 import com.google.common.io.Resources;
-import com.yammer.dropwizard.assets.AssetServlet;
+import com.codahale.dropwizard.servlets.assets.AssetServlet;
 import com.yammer.dropwizard.assets.AssetsBundle;
-import com.yammer.dropwizard.assets.ResourceURL;
+import com.codahale.dropwizard.servlets.assets.ResourceURL;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.setup.ServletEnvironment;
 import org.junit.Before;

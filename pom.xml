@@ -27,6 +27,7 @@
         <module>dropwizard-config</module>
         <module>dropwizard-logging</module>
         <module>dropwizard-server</module>
+        <module>dropwizard-servlets</module>
 
         <module>dropwizard-core</module>
         <module>dropwizard-client</module>

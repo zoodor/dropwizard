@@ -1,5 +1,6 @@
 package com.yammer.dropwizard.assets;
 
+import com.codahale.dropwizard.servlets.assets.AssetServlet;
 import com.yammer.dropwizard.Bundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;

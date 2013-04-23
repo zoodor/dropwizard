@@ -1,11 +1,11 @@
-package com.yammer.dropwizard.util;
+package com.codahale.dropwizard.servlets;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * Utility functions for dealing with servlets.
  */
-public class Servlets {
+class Servlets {
     private Servlets() { /* singleton */ }
 
     /**

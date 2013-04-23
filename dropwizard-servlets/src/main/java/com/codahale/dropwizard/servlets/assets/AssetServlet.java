@@ -1,16 +1,13 @@
-package com.yammer.dropwizard.assets;
+package com.codahale.dropwizard.servlets.assets;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
-import com.google.common.cache.CacheBuilderSpec;
 import com.google.common.hash.Hashing;
 import com.google.common.io.Resources;
 import com.google.common.net.HttpHeaders;
 import com.google.common.net.MediaType;
-
 import org.eclipse.jetty.http.MimeTypes;
-import org.eclipse.jetty.io.Buffer;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -70,15 +67,14 @@ public class AssetServlet extends HttpServlet {
      * @param resourcePath      the base URL from which assets are loaded
      * @param uriPath          the URI path fragment in which all requests are rooted
      * @param indexFile        the filename to use when directories are requested, or null to serve no indexes
-     * @see CacheBuilderSpec
      */
     public AssetServlet(String resourcePath,
                         String uriPath,
                         String indexFile) {
         final String trimmedPath = CharMatcher.is('/').trimFrom(resourcePath);
-	this.resourcePath = trimmedPath.isEmpty() ? trimmedPath : trimmedPath + "/";
+	this.resourcePath = trimmedPath.isEmpty() ? trimmedPath : trimmedPath + '/';
         final String trimmedUri = CharMatcher.is('/').trimTrailingFrom(uriPath);
-        this.uriPath = trimmedUri.length() == 0 ? "/" : trimmedUri;
+        this.uriPath = trimmedUri.isEmpty() ? "/" : trimmedUri;
         this.indexFile = indexFile;
         this.mimeTypes = new MimeTypes();
     }
@@ -121,12 +117,12 @@ public class AssetServlet extends HttpServlet {
             resp.setDateHeader(HttpHeaders.LAST_MODIFIED, cachedAsset.getLastModifiedTime());
             resp.setHeader(HttpHeaders.ETAG, cachedAsset.getETag());
 
-            final Buffer mimeTypeOfExtension = mimeTypes.getMimeByExtension(req.getRequestURI());
+            final String mimeTypeOfExtension = mimeTypes.getMimeByExtension(req.getRequestURI());
             MediaType mediaType = DEFAULT_MEDIA_TYPE;
             
             if (mimeTypeOfExtension != null) {
                 try {
-                    mediaType = MediaType.parse(mimeTypeOfExtension.toString());
+                    mediaType = MediaType.parse(mimeTypeOfExtension);
                     if (defaultCharset != null && mediaType.is(MediaType.ANY_TEXT_TYPE)) {
                         mediaType = mediaType.withCharset(defaultCharset);
                     }
@@ -134,21 +130,16 @@ public class AssetServlet extends HttpServlet {
                 catch (IllegalArgumentException ignore) {}
             }
             
-            resp.setContentType(mediaType.type() + "/" + mediaType.subtype());
+            resp.setContentType(mediaType.type() + '/' + mediaType.subtype());
 
             if (mediaType.charset().isPresent()) {
                 resp.setCharacterEncoding(mediaType.charset().get().toString());
             }
 
-            final ServletOutputStream output = resp.getOutputStream();
-            try {
+            try (ServletOutputStream output = resp.getOutputStream()) {
                 output.write(cachedAsset.getResource());
-            } finally {
-                output.close();
             }
-        } catch (RuntimeException ignored) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-        } catch (URISyntaxException ignored) {
+        } catch (RuntimeException | URISyntaxException ignored) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }

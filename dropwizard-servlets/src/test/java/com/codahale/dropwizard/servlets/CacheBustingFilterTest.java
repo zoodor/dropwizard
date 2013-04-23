@@ -1,6 +1,5 @@
-package com.yammer.dropwizard.servlets.tests;
+package com.codahale.dropwizard.servlets;
 
-import com.yammer.dropwizard.servlets.CacheBustingFilter;
 import org.junit.Test;
 import org.mockito.InOrder;
 

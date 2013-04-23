@@ -1,4 +1,4 @@
-package com.yammer.dropwizard.servlets;
+package com.codahale.dropwizard.servlets;
 
 import com.yammer.dropwizard.util.Duration;
 import org.slf4j.Logger;
@@ -8,8 +8,6 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import static com.yammer.dropwizard.util.Servlets.getFullUrl;
 
 /**
  * A servlet filter which logs the methods and URIs of requests which take longer than a given
@@ -55,7 +53,7 @@ public class SlowRequestFilter implements Filter {
             if (elapsedMS >= threshold) {
                 LOGGER.warn("Slow request: {} {} ({}ms)",
                             req.getMethod(),
-                            getFullUrl(req), elapsedMS);
+                            Servlets.getFullUrl(req), elapsedMS);
             }
         }
     }

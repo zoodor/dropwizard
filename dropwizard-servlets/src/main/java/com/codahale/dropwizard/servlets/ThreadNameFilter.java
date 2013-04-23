@@ -1,10 +1,8 @@
-package com.yammer.dropwizard.servlets;
+package com.codahale.dropwizard.servlets;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-
-import static com.yammer.dropwizard.util.Servlets.getFullUrl;
 
 /**
  * A servlet filter which adds the request method and URI to the thread name processing the request
@@ -33,6 +31,6 @@ public class ThreadNameFilter implements Filter {
     }
 
     private static String formatName(HttpServletRequest req, String oldName) {
-        return oldName + " - " + req.getMethod() + ' ' + getFullUrl(req);
+        return oldName + " - " + req.getMethod() + ' ' + Servlets.getFullUrl(req);
     }
 }

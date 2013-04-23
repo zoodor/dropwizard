@@ -1,9 +1,7 @@
-package com.yammer.dropwizard.assets.tests;
+package com.codahale.dropwizard.servlets.assets;
 
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
-import com.yammer.dropwizard.assets.ResourceNotFoundException;
-import com.yammer.dropwizard.assets.ResourceURL;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +11,7 @@ import java.net.URL;
 import java.util.jar.JarEntry;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.fest.assertions.api.Assertions.fail;
+import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
 
 public class ResourceURLTest {
     private File directory;
@@ -84,9 +82,8 @@ public class ResourceURLTest {
         url = new URL(url.toExternalForm() + "missing");
         try {
             ResourceURL.isDirectory(url);
-            fail("should have thrown an exception");
-        }
-        catch (ResourceNotFoundException ignored) {
+            failBecauseExceptionWasNotThrown(ResourceNotFoundException.class);
+        } catch (ResourceNotFoundException ignored) {
             // expected
         }
     }

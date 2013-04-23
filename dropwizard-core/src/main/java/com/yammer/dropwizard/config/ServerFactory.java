@@ -8,7 +8,7 @@ import com.yammer.dropwizard.jersey.JacksonMessageBodyProvider;
 import com.yammer.dropwizard.jetty.BiDiGzipHandler;
 import com.yammer.dropwizard.jetty.NonblockingServletHolder;
 import com.yammer.dropwizard.jetty.UnbrandedErrorHandler;
-import com.yammer.dropwizard.servlets.ThreadNameFilter;
+import com.codahale.dropwizard.servlets.ThreadNameFilter;
 import com.yammer.dropwizard.util.Duration;
 import com.yammer.dropwizard.util.Size;
 import com.yammer.metrics.HealthChecks;
