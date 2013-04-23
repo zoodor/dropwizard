@@ -1,18 +1,18 @@
 package com.codahale.dropwizard.hibernate.tests;
 
+import com.codahale.dropwizard.config.Environment;
+import com.codahale.dropwizard.db.DatabaseConfiguration;
 import com.codahale.dropwizard.hibernate.*;
+import com.codahale.dropwizard.jersey.DropwizardResourceConfig;
 import com.codahale.dropwizard.jersey.JacksonMessageBodyProvider;
 import com.codahale.dropwizard.json.ObjectMapperFactory;
+import com.codahale.dropwizard.setup.LifecycleEnvironment;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.LowLevelAppDescriptor;
-import com.codahale.dropwizard.config.Environment;
-import com.codahale.dropwizard.db.DatabaseConfiguration;
-import com.codahale.dropwizard.jersey.DropwizardResourceConfig;
-import com.codahale.dropwizard.setup.LifecycleEnvironment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;

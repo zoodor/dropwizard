@@ -1,8 +1,8 @@
 package com.codahale.dropwizard.setup.tests;
 
 import com.codahale.dropwizard.jetty.JettyManaged;
-import com.codahale.dropwizard.setup.LifecycleEnvironment;
 import com.codahale.dropwizard.lifecycle.Managed;
+import com.codahale.dropwizard.setup.LifecycleEnvironment;
 import org.eclipse.jetty.util.component.AggregateLifeCycle;
 import org.eclipse.jetty.util.component.LifeCycle;
 import org.junit.Test;

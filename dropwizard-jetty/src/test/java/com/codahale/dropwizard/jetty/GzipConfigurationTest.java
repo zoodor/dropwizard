@@ -1,12 +1,12 @@
 package com.codahale.dropwizard.jetty;
 
+import com.codahale.dropwizard.config.ConfigurationFactory;
+import com.codahale.dropwizard.jackson.JacksonModule;
 import com.codahale.dropwizard.util.Size;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Resources;
 import com.google.inject.Guice;
-import com.codahale.dropwizard.config.ConfigurationFactory;
-import com.codahale.dropwizard.jackson.JacksonModule;
 import org.junit.Before;
 import org.junit.Test;
 

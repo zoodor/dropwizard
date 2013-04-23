@@ -1,11 +1,11 @@
 package com.codahale.dropwizard.config.tests;
 
+import com.codahale.dropwizard.config.ConfigurationFactory;
 import com.codahale.dropwizard.config.GzipConfiguration;
 import com.codahale.dropwizard.json.ObjectMapperFactory;
 import com.codahale.dropwizard.util.Size;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Resources;
-import com.codahale.dropwizard.config.ConfigurationFactory;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,5 +1,6 @@
 package com.codahale.dropwizard.jersey.errors;
 
+import com.codahale.dropwizard.jackson.ValidationModule;
 import com.codahale.dropwizard.jersey.JacksonMessageBodyProvider;
 import com.codahale.dropwizard.validation.ConstraintViolations;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +10,6 @@ import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.LowLevelAppDescriptor;
-import com.codahale.dropwizard.jackson.ValidationModule;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolationException;

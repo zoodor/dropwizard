@@ -2,12 +2,12 @@ package com.codahale.dropwizard.testing.tests.junit;
 
 import com.codahale.dropwizard.Service;
 import com.codahale.dropwizard.config.Bootstrap;
+import com.codahale.dropwizard.config.Configuration;
 import com.codahale.dropwizard.config.Environment;
+import com.codahale.dropwizard.testing.junit.DropwizardServiceRule;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.io.Resources;
 import com.sun.jersey.api.client.Client;
-import com.codahale.dropwizard.config.Configuration;
-import com.codahale.dropwizard.testing.junit.DropwizardServiceRule;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.ClassRule;
 import org.junit.Test;

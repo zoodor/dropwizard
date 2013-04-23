@@ -1,6 +1,8 @@
 package com.codahale.dropwizard.json.tests;
 
 import ch.qos.logback.classic.Level;
+import com.codahale.dropwizard.json.AnnotationSensitivePropertyNamingStrategy;
+import com.codahale.dropwizard.json.ObjectMapperFactory;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -9,8 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.collect.ImmutableList;
 import com.google.common.net.HostAndPort;
-import com.codahale.dropwizard.json.AnnotationSensitivePropertyNamingStrategy;
-import com.codahale.dropwizard.json.ObjectMapperFactory;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;

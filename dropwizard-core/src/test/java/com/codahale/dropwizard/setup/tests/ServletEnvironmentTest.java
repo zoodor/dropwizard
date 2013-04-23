@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import javax.servlet.*;
-
 import java.util.EnumSet;
 
 import static org.fest.assertions.api.Assertions.assertThat;

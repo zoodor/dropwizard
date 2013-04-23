@@ -1,11 +1,11 @@
 package com.codahale.dropwizard.config;
 
+import com.codahale.dropwizard.jersey.DropwizardResourceConfig;
 import com.codahale.dropwizard.json.ObjectMapperFactory;
 import com.codahale.dropwizard.setup.*;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
-import com.codahale.dropwizard.jersey.DropwizardResourceConfig;
 import com.yammer.metrics.core.HealthCheck;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;

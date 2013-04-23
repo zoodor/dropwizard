@@ -4,15 +4,15 @@ import com.codahale.dropwizard.cli.Command;
 import com.codahale.dropwizard.cli.CommandLineParser;
 import com.codahale.dropwizard.cli.CommandModule;
 import com.codahale.dropwizard.config.ConfigurationFactory;
+import com.codahale.dropwizard.config.SourceProvider;
 import com.codahale.dropwizard.jetty.ServerConfiguration;
+import com.codahale.dropwizard.logging.Logging;
 import com.codahale.dropwizard.logging.LoggingFactory;
 import com.codahale.dropwizard.server.commands.ServerCommand;
+import com.codahale.dropwizard.util.Generics;
 import com.google.common.collect.Lists;
 import com.google.inject.*;
 import com.google.inject.util.Modules;
-import com.codahale.dropwizard.config.SourceProvider;
-import com.codahale.dropwizard.logging.Logging;
-import com.codahale.dropwizard.util.Generics;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 import java.io.IOException;

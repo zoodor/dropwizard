@@ -1,12 +1,12 @@
 package com.codahale.dropwizard.config.tests;
 
+import com.codahale.dropwizard.config.ConfigurationFactory;
 import com.codahale.dropwizard.config.HttpConfiguration;
 import com.codahale.dropwizard.json.ObjectMapperFactory;
 import com.codahale.dropwizard.util.Duration;
 import com.codahale.dropwizard.util.Size;
 import com.google.common.base.Optional;
 import com.google.common.io.Resources;
-import com.codahale.dropwizard.config.ConfigurationFactory;
 import org.junit.Before;
 import org.junit.Test;
 

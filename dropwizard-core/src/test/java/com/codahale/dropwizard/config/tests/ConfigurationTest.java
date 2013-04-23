@@ -2,9 +2,9 @@ package com.codahale.dropwizard.config.tests;
 
 import com.codahale.dropwizard.config.Configuration;
 import com.codahale.dropwizard.json.ObjectMapperFactory;
+import com.codahale.dropwizard.logging.LoggingOutput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.spi.service.ServiceFinder;
-import com.codahale.dropwizard.logging.LoggingOutput;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;

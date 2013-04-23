@@ -1,5 +1,6 @@
 package com.codahale.dropwizard.json;
 
+import com.codahale.dropwizard.logging.LoggingOutput;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -21,7 +22,6 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sun.jersey.spi.service.ServiceFinder;
-import com.codahale.dropwizard.logging.LoggingOutput;
 
 import java.text.DateFormat;
 import java.util.List;

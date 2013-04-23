@@ -1,16 +1,16 @@
 package com.codahale.dropwizard.jdbi.tests;
 
-import com.codahale.dropwizard.jdbi.DBIFactory;
-import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.codahale.dropwizard.config.Environment;
 import com.codahale.dropwizard.db.DatabaseConfiguration;
 import com.codahale.dropwizard.db.ManagedDataSource;
+import com.codahale.dropwizard.jdbi.DBIFactory;
 import com.codahale.dropwizard.lifecycle.Managed;
 import com.codahale.dropwizard.logging.Logging;
 import com.codahale.dropwizard.setup.AdminEnvironment;
 import com.codahale.dropwizard.setup.LifecycleEnvironment;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,9 +25,7 @@ import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class JDBITest {
     private final DatabaseConfiguration hsqlConfig = new DatabaseConfiguration();

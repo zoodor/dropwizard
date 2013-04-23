@@ -2,9 +2,9 @@ package com.codahale.dropwizard.jersey;
 
 import com.codahale.dropwizard.jersey.caching.CacheControlledResourceMethodDispatchAdapter;
 import com.codahale.dropwizard.jersey.errors.ConstraintViolationExceptionMapper;
+import com.codahale.dropwizard.jersey.errors.JacksonExceptionMapper;
 import com.codahale.dropwizard.jersey.errors.LoggingExceptionMapper;
 import com.sun.jersey.api.core.ScanningResourceConfig;
-import com.codahale.dropwizard.jersey.errors.JacksonExceptionMapper;
 import com.yammer.metrics.jersey.InstrumentedResourceMethodDispatchAdapter;
 
 public class DropwizardResourceConfig extends ScanningResourceConfig {

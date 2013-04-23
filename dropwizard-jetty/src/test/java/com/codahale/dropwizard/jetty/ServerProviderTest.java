@@ -1,7 +1,7 @@
 package com.codahale.dropwizard.jetty;
 
-import com.google.common.collect.ImmutableList;
 import com.codahale.dropwizard.logging.LoggingOutput;
+import com.google.common.collect.ImmutableList;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.security.SecurityHandler;
 import org.eclipse.jetty.server.Server;

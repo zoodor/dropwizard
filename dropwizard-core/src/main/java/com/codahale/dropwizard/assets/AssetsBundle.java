@@ -1,9 +1,9 @@
 package com.codahale.dropwizard.assets;
 
-import com.codahale.dropwizard.servlets.assets.AssetServlet;
 import com.codahale.dropwizard.Bundle;
 import com.codahale.dropwizard.config.Bootstrap;
 import com.codahale.dropwizard.config.Environment;
+import com.codahale.dropwizard.servlets.assets.AssetServlet;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

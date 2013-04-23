@@ -1,10 +1,10 @@
 package com.codahale.dropwizard.jersey;
 
 import com.codahale.dropwizard.validation.ConstraintViolations;
+import com.codahale.dropwizard.validation.Validated;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import com.codahale.dropwizard.validation.Validated;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;

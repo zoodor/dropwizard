@@ -1,12 +1,12 @@
 package com.codahale.dropwizard.jersey;
 
-import com.codahale.dropwizard.jersey.resources.LastResource;
-import com.google.inject.Guice;
-import com.sun.jersey.api.core.ResourceConfig;
+import com.codahale.dropwizard.jersey.errors.ConstraintViolationExceptionMapper;
 import com.codahale.dropwizard.jersey.resources.ExampleProvider;
 import com.codahale.dropwizard.jersey.resources.ExampleResource;
+import com.codahale.dropwizard.jersey.resources.LastResource;
 import com.codahale.dropwizard.jersey.resources.OtherResource;
-import com.codahale.dropwizard.jersey.errors.ConstraintViolationExceptionMapper;
+import com.google.inject.Guice;
+import com.sun.jersey.api.core.ResourceConfig;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlet.ServletMapping;

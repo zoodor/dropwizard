@@ -2,10 +2,10 @@ package com.codahale.dropwizard.hibernate.tests;
 
 import com.codahale.dropwizard.hibernate.UnitOfWork;
 import com.codahale.dropwizard.hibernate.UnitOfWorkRequestDispatcher;
+import com.codahale.dropwizard.hibernate.UnitOfWorkResourceMethodDispatchProvider;
 import com.sun.jersey.api.model.AbstractResourceMethod;
 import com.sun.jersey.spi.container.ResourceMethodDispatchProvider;
 import com.sun.jersey.spi.dispatch.RequestDispatcher;
-import com.codahale.dropwizard.hibernate.UnitOfWorkResourceMethodDispatchProvider;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 

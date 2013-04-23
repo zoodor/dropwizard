@@ -1,15 +1,15 @@
 package com.codahale.dropwizard.client.tests;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.filter.GZIPContentEncodingFilter;
-import com.sun.jersey.client.apache4.ApacheHttpClient4;
 import com.codahale.dropwizard.client.JerseyClientBuilder;
 import com.codahale.dropwizard.client.JerseyClientConfiguration;
 import com.codahale.dropwizard.config.Environment;
 import com.codahale.dropwizard.jersey.JacksonMessageBodyProvider;
 import com.codahale.dropwizard.setup.JsonEnvironment;
 import com.codahale.dropwizard.setup.LifecycleEnvironment;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.filter.GZIPContentEncodingFilter;
+import com.sun.jersey.client.apache4.ApacheHttpClient4;
 import org.junit.Before;
 import org.junit.Test;
 

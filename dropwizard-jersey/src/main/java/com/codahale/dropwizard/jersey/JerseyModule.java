@@ -9,7 +9,6 @@ import com.sun.jersey.spi.scanning.AnnotationScannerListener;
 import com.sun.jersey.spi.scanning.PathProviderScannerListener;
 
 import javax.ws.rs.core.MediaType;
-
 import java.lang.annotation.Annotation;
 import java.util.Locale;
 

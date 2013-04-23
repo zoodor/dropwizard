@@ -1,9 +1,9 @@
 package com.codahale.dropwizard.setup;
 
 import com.codahale.dropwizard.tasks.GarbageCollectionTask;
-import com.google.common.collect.ImmutableSet;
 import com.codahale.dropwizard.tasks.Task;
 import com.codahale.dropwizard.tasks.TaskServlet;
+import com.google.common.collect.ImmutableSet;
 import com.yammer.metrics.core.HealthCheck;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;

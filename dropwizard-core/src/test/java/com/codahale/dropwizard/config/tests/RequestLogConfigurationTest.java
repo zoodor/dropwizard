@@ -1,9 +1,9 @@
 package com.codahale.dropwizard.config.tests;
 
-import com.codahale.dropwizard.config.RequestLogConfiguration;
-import com.google.common.io.Resources;
 import com.codahale.dropwizard.config.ConfigurationFactory;
+import com.codahale.dropwizard.config.RequestLogConfiguration;
 import com.codahale.dropwizard.json.ObjectMapperFactory;
+import com.google.common.io.Resources;
 import org.junit.Before;
 import org.junit.Test;
 

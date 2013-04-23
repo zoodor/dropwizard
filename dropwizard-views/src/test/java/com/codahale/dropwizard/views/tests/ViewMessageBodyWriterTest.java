@@ -1,13 +1,7 @@
 package com.codahale.dropwizard.views.tests;
 
+import com.codahale.dropwizard.views.*;
 import com.sun.jersey.core.util.StringKeyIgnoreCaseMultivaluedMap;
-import com.codahale.dropwizard.views.MyOtherView;
-import com.codahale.dropwizard.views.MyView;
-import com.codahale.dropwizard.views.ViewMessageBodyWriter;
-import com.codahale.dropwizard.views.ViewRenderException;
-import com.codahale.dropwizard.views.BadView;
-import com.codahale.dropwizard.views.MustacheView;
-import com.codahale.dropwizard.views.UnknownView;
 import org.junit.Test;
 
 import javax.ws.rs.WebApplicationException;

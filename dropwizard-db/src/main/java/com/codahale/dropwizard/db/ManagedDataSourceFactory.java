@@ -1,14 +1,13 @@
 package com.codahale.dropwizard.db;
 
+import com.yammer.metrics.Metrics;
+import com.yammer.metrics.core.Gauge;
 import org.apache.tomcat.dbcp.dbcp.DriverManagerConnectionFactory;
 import org.apache.tomcat.dbcp.dbcp.PoolableConnectionFactory;
 import org.apache.tomcat.dbcp.pool.impl.GenericObjectPool;
 
 import java.util.Map;
 import java.util.Properties;
-
-import com.yammer.metrics.Metrics;
-import com.yammer.metrics.core.Gauge;
 
 public class ManagedDataSourceFactory {
     public ManagedDataSource build(DatabaseConfiguration configuration) throws ClassNotFoundException {

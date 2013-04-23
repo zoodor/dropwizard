@@ -1,11 +1,11 @@
 package com.codahale.dropwizard.config.tests;
 
 import ch.qos.logback.classic.Level;
+import com.codahale.dropwizard.config.ConfigurationFactory;
+import com.codahale.dropwizard.json.ObjectMapperFactory;
+import com.codahale.dropwizard.logging.LoggingConfiguration;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Resources;
-import com.codahale.dropwizard.config.ConfigurationFactory;
-import com.codahale.dropwizard.logging.LoggingConfiguration;
-import com.codahale.dropwizard.json.ObjectMapperFactory;
 import org.junit.Before;
 import org.junit.Test;
 

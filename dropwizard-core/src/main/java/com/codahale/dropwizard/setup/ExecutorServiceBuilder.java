@@ -1,8 +1,8 @@
 package com.codahale.dropwizard.setup;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.codahale.dropwizard.jetty.JettyManaged;
 import com.codahale.dropwizard.lifecycle.ExecutorServiceManager;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.eclipse.jetty.util.component.AggregateLifeCycle;
 
 import java.util.concurrent.*;

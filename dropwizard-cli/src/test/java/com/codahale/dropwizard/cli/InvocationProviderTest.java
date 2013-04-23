@@ -4,9 +4,7 @@ import com.google.common.base.Optional;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class InvocationProviderTest {
     private final CommandLineParser parser = mock(CommandLineParser.class);

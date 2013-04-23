@@ -1,10 +1,10 @@
 package com.codahale.dropwizard.jetty;
 
+import com.codahale.dropwizard.guice.PrivateDropwizardModule;
 import com.google.common.collect.Lists;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
-import com.codahale.dropwizard.guice.PrivateDropwizardModule;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import java.lang.annotation.Annotation;

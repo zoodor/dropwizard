@@ -1,9 +1,9 @@
 package com.codahale.dropwizard.cli;
 
+import com.codahale.dropwizard.util.JarLocation;
 import com.google.common.base.Optional;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.codahale.dropwizard.util.JarLocation;
 import org.junit.Test;
 
 import javax.inject.Inject;

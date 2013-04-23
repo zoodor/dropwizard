@@ -1,16 +1,16 @@
 package com.codahale.dropwizard.config;
 
 import com.codahale.dropwizard.jersey.JacksonMessageBodyProvider;
+import com.codahale.dropwizard.jetty.BiDiGzipHandler;
+import com.codahale.dropwizard.jetty.NonblockingServletHolder;
 import com.codahale.dropwizard.jetty.UnbrandedErrorHandler;
+import com.codahale.dropwizard.servlets.ThreadNameFilter;
 import com.codahale.dropwizard.util.Duration;
 import com.codahale.dropwizard.util.Size;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
-import com.codahale.dropwizard.jetty.BiDiGzipHandler;
-import com.codahale.dropwizard.jetty.NonblockingServletHolder;
-import com.codahale.dropwizard.servlets.ThreadNameFilter;
 import com.yammer.metrics.HealthChecks;
 import com.yammer.metrics.core.HealthCheck;
 import com.yammer.metrics.jetty.*;

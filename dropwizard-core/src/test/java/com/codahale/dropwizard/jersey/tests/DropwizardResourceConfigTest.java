@@ -1,8 +1,8 @@
 package com.codahale.dropwizard.jersey.tests;
 
 import com.codahale.dropwizard.jersey.DropwizardResourceConfig;
-import com.sun.jersey.core.spi.scanning.PackageNamesScanner;
 import com.codahale.dropwizard.jersey.tests.dummy.DummyResource;
+import com.sun.jersey.core.spi.scanning.PackageNamesScanner;
 import org.junit.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 

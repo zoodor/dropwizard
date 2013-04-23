@@ -1,13 +1,13 @@
 package com.codahale.dropwizard.config;
 
+import com.codahale.dropwizard.Bundle;
+import com.codahale.dropwizard.ConfiguredBundle;
 import com.codahale.dropwizard.Service;
 import com.codahale.dropwizard.cli.Command;
+import com.codahale.dropwizard.cli.ConfiguredCommand;
 import com.codahale.dropwizard.json.ObjectMapperFactory;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.codahale.dropwizard.Bundle;
-import com.codahale.dropwizard.ConfiguredBundle;
-import com.codahale.dropwizard.cli.ConfiguredCommand;
 
 import java.util.List;
 

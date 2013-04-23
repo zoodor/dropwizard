@@ -2,13 +2,13 @@ package com.codahale.dropwizard.config;
 
 import com.codahale.dropwizard.util.Duration;
 import com.codahale.dropwizard.util.Size;
+import com.codahale.dropwizard.validation.PortRange;
+import com.codahale.dropwizard.validation.ValidationMethod;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.Optional;
-import com.codahale.dropwizard.validation.PortRange;
-import com.codahale.dropwizard.validation.ValidationMethod;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;

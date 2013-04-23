@@ -1,5 +1,8 @@
 package com.codahale.dropwizard.testing;
 
+import com.codahale.dropwizard.jersey.DropwizardResourceConfig;
+import com.codahale.dropwizard.jersey.JacksonMessageBodyProvider;
+import com.codahale.dropwizard.json.ObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -7,9 +10,6 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.LowLevelAppDescriptor;
-import com.codahale.dropwizard.jersey.DropwizardResourceConfig;
-import com.codahale.dropwizard.jersey.JacksonMessageBodyProvider;
-import com.codahale.dropwizard.json.ObjectMapperFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.bridge.SLF4JBridgeHandler;

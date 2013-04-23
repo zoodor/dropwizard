@@ -1,9 +1,9 @@
 package com.codahale.dropwizard.config;
 
+import com.codahale.dropwizard.logging.LoggingConfiguration;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
-import com.codahale.dropwizard.logging.LoggingConfiguration;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

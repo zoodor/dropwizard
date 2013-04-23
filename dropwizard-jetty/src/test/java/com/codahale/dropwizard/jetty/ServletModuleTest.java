@@ -9,7 +9,6 @@ import org.junit.Test;
 import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
-
 import java.io.IOException;
 
 import static org.fest.assertions.api.Assertions.assertThat;

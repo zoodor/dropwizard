@@ -5,8 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.fest.assertions.api.Assertions;
 import org.junit.Test;
 
-import static org.fest.assertions.api.Assertions.assertThat;
-
 public class JsonHelpersTest {
     @Test
     public void readsJsonFixturesAsJsonNodes() throws Exception {

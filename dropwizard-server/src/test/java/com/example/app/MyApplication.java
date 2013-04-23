@@ -1,12 +1,12 @@
 package com.example.app;
 
-import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
-import com.google.common.collect.ImmutableList;
-import com.google.inject.name.Names;
 import com.codahale.dropwizard.jackson.JacksonModule;
 import com.codahale.dropwizard.jersey.JerseyModule;
 import com.codahale.dropwizard.jetty.ServletModule;
 import com.codahale.dropwizard.server.Application;
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+import com.google.common.collect.ImmutableList;
+import com.google.inject.name.Names;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

@@ -2,11 +2,11 @@ package com.codahale.dropwizard.hibernate.tests;
 
 import com.codahale.dropwizard.config.Environment;
 import com.codahale.dropwizard.db.DatabaseConfiguration;
+import com.codahale.dropwizard.hibernate.HibernateBundle;
 import com.codahale.dropwizard.hibernate.ManagedSessionFactory;
 import com.codahale.dropwizard.hibernate.SessionFactoryFactory;
 import com.codahale.dropwizard.setup.LifecycleEnvironment;
 import com.google.common.collect.ImmutableList;
-import com.codahale.dropwizard.hibernate.HibernateBundle;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
