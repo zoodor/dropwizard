@@ -38,11 +38,8 @@ public class BiDiGzipHandlerTest {
             entity.write("HANDLED: ".getBytes(Charsets.UTF_8));
             ByteStreams.copy(request.getInputStream(), entity);
 
-            final OutputStream output = response.getOutputStream();
-            try {
+            try (OutputStream output = response.getOutputStream()) {
                 output.write(entity.toByteArray());
-            } finally {
-                output.close();
             }
         }
     };

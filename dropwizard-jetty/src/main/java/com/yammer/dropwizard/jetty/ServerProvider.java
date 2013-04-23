@@ -65,7 +65,9 @@ public class ServerProvider implements Provider<Server> {
 
     @Override
     public Server get() {
-        final Server server = new Server();
+        final ThreadPool threadPool = createThreadPool();
+
+        final Server server = new Server(threadPool);
 
         final Connector applicationConnector = createApplicationConnector(server);
         server.addConnector(applicationConnector);
@@ -140,10 +142,15 @@ public class ServerProvider implements Provider<Server> {
     }
 
     private Connector createAdminConnector(Server server) {
-        final ServerConnector connector = new ServerConnector(server);
+        final QueuedThreadPool threadPool = new QueuedThreadPool(16, 1);
+        threadPool.setName("dw-admin");
+
+        final ServerConnector connector = new ServerConnector(server, threadPool, null, null, 1, 1,
+                                                              new HttpConnectionFactory());
         connector.setHost(config.getBindHost().orNull());
         connector.setPort(config.getAdminPort());
         connector.setName("admin");
+
         return connector;
     }
 
@@ -173,7 +180,7 @@ public class ServerProvider implements Provider<Server> {
                                         (int) config.getMaxBufferPoolSize().toBytes());
 
         final ServerConnector connector = new ServerConnector(server,
-                                                              createThreadPool(),
+                                                              null,
                                                               scheduler,
                                                               bufferPool,
                                                               config.getAcceptorThreads(),
@@ -192,12 +199,16 @@ public class ServerProvider implements Provider<Server> {
     }
 
     private ThreadPool createThreadPool() {
-        final BlockingQueue<Runnable> queue =
-                new BlockingArrayQueue<Runnable>(config.getMinThreads(),
-                                                 config.getMaxThreads(),
-                                                 config.getMaxQueuedRequests()
-                                                       .or(Integer.MAX_VALUE));
-        return new QueuedThreadPool(config.getMaxThreads(), config.getMinThreads(), 60000, queue);
+        final BlockingQueue<Runnable> queue = new BlockingArrayQueue<>(config.getMinThreads(),
+                                                                       config.getMaxThreads(),
+                                                                       config.getMaxQueuedRequests()
+                                                                             .or(Integer.MAX_VALUE));
+        final QueuedThreadPool pool = new QueuedThreadPool(config.getMaxThreads(),
+                                                           config.getMinThreads(),
+                                                           60000,
+                                                           queue);
+        pool.setName("dw");
+        return pool;
     }
 
     private Handler createHandler(Connector applicationConnector, Connector adminConnector) {
@@ -237,7 +248,7 @@ public class ServerProvider implements Provider<Server> {
         logger.setLevel(Level.INFO);
         final LoggerContext context = logger.getLoggerContext();
 
-        final AppenderAttachableImpl<ILoggingEvent> appenders = new AppenderAttachableImpl<ILoggingEvent>();
+        final AppenderAttachableImpl<ILoggingEvent> appenders = new AppenderAttachableImpl<>();
 
         final RequestLogLayout layout = new RequestLogLayout();
         layout.start();

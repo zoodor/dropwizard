@@ -63,7 +63,7 @@ public class RoutingHandlerBenchmark extends SimpleBenchmark {
     private final Handler arrayHandler = new RoutingHandler(handlers);
 //    private final Handler mapHandler = new RoutingMapHandler(handlers);
 
-    private final HttpChannel<?> channel = new HttpChannel<Object>(connector1, new HttpConfiguration(), null, null, new HttpInput<Object>() {
+    private final HttpChannel<?> channel = new HttpChannel<>(connector1, new HttpConfiguration(), null, null, new HttpInput<Object>() {
         @Override
         protected int remaining(Object item) {
             return 0;

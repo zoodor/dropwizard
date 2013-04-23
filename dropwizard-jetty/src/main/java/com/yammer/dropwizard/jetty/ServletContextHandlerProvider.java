@@ -26,11 +26,7 @@ public class ServletContextHandlerProvider implements Provider<ServletContextHan
     @Override
     public ServletContextHandler get() {
         final ServletContextHandler handler = new ServletContextHandler();
-        addFilters(handler);
-        return handler;
-    }
 
-    private void addFilters(ServletContextHandler handler) {
         for (FilterBuilder builder : filters) {
             final FilterHolder holder = builder.getHolder();
             if (holder.getFilter() == null && holder.getHeldClass() != null) {
@@ -52,5 +48,7 @@ public class ServletContextHandlerProvider implements Provider<ServletContextHan
                 handler.addServlet(holder, path);
             }
         }
+
+        return handler;
     }
 }

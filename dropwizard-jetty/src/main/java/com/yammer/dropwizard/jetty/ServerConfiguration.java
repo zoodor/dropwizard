@@ -59,7 +59,7 @@ public class ServerConfiguration {
     @JsonProperty
     private int selectorThreads = Runtime.getRuntime().availableProcessors();
 
-    @Min(1)
+    @Min(-1)
     @JsonProperty
     private int acceptQueueSize = -1;
 
@@ -122,17 +122,17 @@ public class ServerConfiguration {
 
     @NotNull
     @JsonProperty
-    @MinSize(value = 1, unit = SizeUnit.KILOBYTES)
+    @MinSize(value = 1, unit = SizeUnit.BYTES)
     private Size minBufferPoolSize = Size.bytes(64);
 
     @NotNull
     @JsonProperty
-    @MinSize(value = 1, unit = SizeUnit.KILOBYTES)
+    @MinSize(value = 1, unit = SizeUnit.BYTES)
     private Size bufferPoolIncrement = Size.bytes(1024);
 
     @NotNull
     @JsonProperty
-    @MinSize(value = 1, unit = SizeUnit.KILOBYTES)
+    @MinSize(value = 1, unit = SizeUnit.BYTES)
     private Size maxBufferPoolSize = Size.kilobytes(64);
 
     @NotNull
