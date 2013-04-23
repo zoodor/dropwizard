@@ -52,7 +52,7 @@ public class CommandLineParserTest {
     private final PrintWriter writer = new PrintWriter(output);
     private final Injector injector = Guice.createInjector(new CommandModule() {
         @Override
-        protected void configure() {
+        protected void configureCommands() {
             bind(JarLocation.class).toInstance(new JarLocation(getClass()));
             bind(PrintWriter.class).toInstance(writer);
             addCommand(OneCommand.class);
