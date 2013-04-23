@@ -26,7 +26,7 @@ public class SessionFactoryFactory {
 
     private final ManagedDataSourceFactory dataSourceFactory = new ManagedDataSourceFactory();
 
-    public SessionFactory build(HibernateBundle bundle,
+    public SessionFactory build(HibernateBundle<?> bundle,
                                 Environment environment,
                                 DatabaseConfiguration dbConfig,
                                 List<Class<?>> entities) throws ClassNotFoundException {
@@ -34,7 +34,7 @@ public class SessionFactoryFactory {
         return build(bundle, environment, dbConfig, dataSource, entities);
     }
 
-    public SessionFactory build(HibernateBundle bundle,
+    public SessionFactory build(HibernateBundle<?> bundle,
                                 Environment environment,
                                 DatabaseConfiguration dbConfig,
                                 ManagedDataSource dataSource,
@@ -59,7 +59,7 @@ public class SessionFactoryFactory {
         return connectionProvider;
     }
 
-    private SessionFactory buildSessionFactory(HibernateBundle bundle,
+    private SessionFactory buildSessionFactory(HibernateBundle<?> bundle,
                                                DatabaseConfiguration dbConfig,
                                                ConnectionProvider connectionProvider,
                                                ImmutableMap<String, String> properties,

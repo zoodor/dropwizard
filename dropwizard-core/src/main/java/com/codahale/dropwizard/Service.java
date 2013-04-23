@@ -65,9 +65,9 @@ public abstract class Service<T extends Configuration> {
      * @throws Exception if something goes wrong
      */
     public final void run(String[] arguments) throws Exception {
-        final Bootstrap<T> bootstrap = new Bootstrap<T>(this);
-        bootstrap.addCommand(new ServerCommand<T>(this));
-        bootstrap.addCommand(new CheckCommand<T>(this));
+        final Bootstrap<T> bootstrap = new Bootstrap<>(this);
+        bootstrap.addCommand(new ServerCommand<>(this));
+        bootstrap.addCommand(new CheckCommand<>(this));
         initialize(bootstrap);
         final Cli cli = new Cli(new JarLocation(getClass()), bootstrap);
         cli.run(arguments);

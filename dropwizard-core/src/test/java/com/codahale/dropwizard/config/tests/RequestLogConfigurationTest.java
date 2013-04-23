@@ -19,7 +19,7 @@ public class RequestLogConfigurationTest {
     @Before
     public void setUp() throws Exception {
         final ConfigurationFactory<RequestLogConfiguration> factory =
-                new ConfigurationFactory<RequestLogConfiguration>(Validation.buildDefaultValidatorFactory()
+                new ConfigurationFactory<>(Validation.buildDefaultValidatorFactory()
                                                                       .getValidator(),
                                                                   RequestLogConfiguration.class,
                                                             new ObjectMapperFactory().build(),

@@ -21,7 +21,7 @@ public class HttpConfigurationTest {
     @Before
     public void setUp() throws Exception {
         final ConfigurationFactory<HttpConfiguration> factory =
-                new ConfigurationFactory<HttpConfiguration>(Validation.buildDefaultValidatorFactory()
+                new ConfigurationFactory<>(Validation.buildDefaultValidatorFactory()
                                                                       .getValidator(),
                                                             HttpConfiguration.class,
                                                             new ObjectMapperFactory().build(),

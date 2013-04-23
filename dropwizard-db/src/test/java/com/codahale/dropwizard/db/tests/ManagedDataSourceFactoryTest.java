@@ -38,9 +38,9 @@ public class ManagedDataSourceFactoryTest {
 
     @Test
     public void buildsAConnectionPoolToTheDatabase() throws Exception {
-        final Connection connection = dataSource.getConnection();
-        try {
-            final PreparedStatement statement = connection.prepareStatement("select 1 from INFORMATION_SCHEMA.SYSTEM_USERS");
+        try (Connection connection = dataSource.getConnection()) {
+            final PreparedStatement statement = connection.prepareStatement(
+                    "select 1 from INFORMATION_SCHEMA.SYSTEM_USERS");
             try {
                 final ResultSet set = statement.executeQuery();
                 try {
@@ -53,8 +53,6 @@ public class ManagedDataSourceFactoryTest {
             } finally {
                 statement.close();
             }
-        } finally {
-            connection.close();
         }
     }
 }

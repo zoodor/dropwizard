@@ -20,7 +20,7 @@ public class GzipConfigurationTest {
     @Before
     public void setUp() throws Exception {
         final ConfigurationFactory<GzipConfiguration> factory =
-                new ConfigurationFactory<GzipConfiguration>(Validation.buildDefaultValidatorFactory()
+                new ConfigurationFactory<>(Validation.buildDefaultValidatorFactory()
                                                                       .getValidator(),
                                                             GzipConfiguration.class,
                                                             new ObjectMapperFactory().build(),

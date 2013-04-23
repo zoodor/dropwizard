@@ -16,7 +16,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public class LoggingConfigurationTest {
     private final ConfigurationFactory<LoggingConfiguration> factory =
-            new ConfigurationFactory<LoggingConfiguration>(Validation.buildDefaultValidatorFactory().getValidator(),
+            new ConfigurationFactory<>(Validation.buildDefaultValidatorFactory().getValidator(),
                                                            LoggingConfiguration.class,
                                                            new ObjectMapperFactory().build(),
                                                            "dw");

@@ -76,17 +76,14 @@ public abstract class ConfiguredCommand<T extends Configuration> extends Command
                                  Class<T> configurationClass,
                                  ObjectMapperFactory objectMapperFactory) throws IOException, ConfigurationException {
         final ConfigurationFactory<T> configurationFactory =
-                new ConfigurationFactory<T>(Validation.buildDefaultValidatorFactory().getValidator(),
+                new ConfigurationFactory<>(Validation.buildDefaultValidatorFactory().getValidator(),
                                             configurationClass,
                                             objectMapperFactory.build(),
                                             "dw");
 
         if (configurationPath != null) {
-            final InputStream input = configurationProvider.create(configurationPath);
-            try {
+            try (InputStream input = configurationProvider.create(configurationPath)) {
                 return configurationFactory.build(configurationPath, input);
-            } finally {
-                input.close();
             }
         }
         return configurationFactory.build();

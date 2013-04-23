@@ -21,7 +21,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class ServletEnvironmentTest {
-    private ServletContextHandler handler = mock(ServletContextHandler.class);
+    private final ServletContextHandler handler = mock(ServletContextHandler.class);
     private final ServletEnvironment environment = new ServletEnvironment(handler);
 
     @Test

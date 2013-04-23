@@ -34,7 +34,7 @@ public class Logging {
         filter.setLevel(Level.WARN.toString());
         filter.start();
 
-        final ConsoleAppender<ILoggingEvent> appender = new ConsoleAppender<ILoggingEvent>();
+        final ConsoleAppender<ILoggingEvent> appender = new ConsoleAppender<>();
         appender.addFilter(filter);
         appender.setContext(root.getLoggerContext());
         appender.setLayout(formatter);
