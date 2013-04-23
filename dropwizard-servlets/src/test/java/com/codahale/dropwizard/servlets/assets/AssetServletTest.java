@@ -1,7 +1,7 @@
 package com.codahale.dropwizard.servlets.assets;
 
 import com.google.common.net.HttpHeaders;
-import com.yammer.dropwizard.logging.Logging;
+import com.codahale.dropwizard.logging.Logging;
 import org.eclipse.jetty.http.*;
 import org.eclipse.jetty.servlet.ServletTester;
 import org.fest.assertions.api.Assertions;

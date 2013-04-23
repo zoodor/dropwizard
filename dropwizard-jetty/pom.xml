@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.yammer.dropwizard</groupId>
+        <groupId>com.codahale.dropwizard</groupId>
         <artifactId>dropwizard-parent</artifactId>
         <version>0.7.0-SNAPSHOT</version>
     </parent>
@@ -18,12 +18,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.yammer.dropwizard</groupId>
+            <groupId>com.codahale.dropwizard</groupId>
             <artifactId>dropwizard-guice</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.yammer.dropwizard</groupId>
+            <groupId>com.codahale.dropwizard</groupId>
             <artifactId>dropwizard-logging</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -38,13 +38,13 @@
             <version>${jetty.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.yammer.dropwizard</groupId>
+            <groupId>com.codahale.dropwizard</groupId>
             <artifactId>dropwizard-config</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.yammer.dropwizard</groupId>
+            <groupId>com.codahale.dropwizard</groupId>
             <artifactId>dropwizard-jackson</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

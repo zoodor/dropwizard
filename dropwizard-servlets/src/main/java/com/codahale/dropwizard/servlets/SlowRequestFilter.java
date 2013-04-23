@@ -1,6 +1,6 @@
 package com.codahale.dropwizard.servlets;
 
-import com.yammer.dropwizard.util.Duration;
+import com.codahale.dropwizard.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

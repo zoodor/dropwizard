@@ -3,10 +3,10 @@ package com.example.app;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.name.Names;
-import com.yammer.dropwizard.jackson.JacksonModule;
-import com.yammer.dropwizard.jersey.JerseyModule;
-import com.yammer.dropwizard.jetty.ServletModule;
-import com.yammer.dropwizard.server.Application;
+import com.codahale.dropwizard.jackson.JacksonModule;
+import com.codahale.dropwizard.jersey.JerseyModule;
+import com.codahale.dropwizard.jetty.ServletModule;
+import com.codahale.dropwizard.server.Application;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
