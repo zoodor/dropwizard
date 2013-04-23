@@ -70,9 +70,7 @@ public class BasicAuthProvider<T> implements InjectableProvider<Auth, Parameter>
                         }
                     }
                 }
-            } catch (UnsupportedEncodingException e) {
-                LOGGER.debug("Error decoding credentials", e);
-            } catch (IllegalArgumentException e) {
+            } catch (UnsupportedEncodingException | IllegalArgumentException e) {
                 LOGGER.debug("Error decoding credentials", e);
             } catch (AuthenticationException e) {
                 LOGGER.warn("Error authenticating credentials", e);
@@ -116,6 +114,6 @@ public class BasicAuthProvider<T> implements InjectableProvider<Auth, Parameter>
     public Injectable<?> getInjectable(ComponentContext ic,
                                        Auth a,
                                        Parameter c) {
-        return new BasicAuthInjectable<T>(authenticator, realm, a.required());
+        return new BasicAuthInjectable<>(authenticator, realm, a.required());
     }
 }
