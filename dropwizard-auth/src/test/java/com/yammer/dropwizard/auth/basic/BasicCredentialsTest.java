@@ -1,6 +1,5 @@
-package com.yammer.dropwizard.auth.basic.tests;
+package com.yammer.dropwizard.auth.basic;
 
-import com.yammer.dropwizard.auth.basic.BasicCredentials;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;

@@ -1,4 +1,4 @@
-package com.yammer.dropwizard.auth.oauth.tests;
+package com.yammer.dropwizard.auth.basic;
 
 import com.google.common.base.Optional;
 import com.sun.jersey.api.client.UniformInterfaceException;
@@ -8,7 +8,6 @@ import com.sun.jersey.test.framework.LowLevelAppDescriptor;
 import com.yammer.dropwizard.auth.Auth;
 import com.yammer.dropwizard.auth.AuthenticationException;
 import com.yammer.dropwizard.auth.Authenticator;
-import com.yammer.dropwizard.auth.oauth.OAuthProvider;
 import com.yammer.dropwizard.jersey.DropwizardResourceConfig;
 import org.junit.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
@@ -22,7 +21,8 @@ import javax.ws.rs.core.MediaType;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
 
-public class OAuthProviderTest extends JerseyTest {
+
+public class BasicAuthProviderTest extends JerseyTest {
     static {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
@@ -40,19 +40,19 @@ public class OAuthProviderTest extends JerseyTest {
     @Override
     protected AppDescriptor configure() {
         final DropwizardResourceConfig config = new DropwizardResourceConfig(true);
-        final Authenticator<String, String> authenticator = new Authenticator<String, String>() {
+        final Authenticator<BasicCredentials, String> authenticator = new Authenticator<BasicCredentials, String>() {
             @Override
-            public Optional<String> authenticate(String credentials) throws AuthenticationException {
-                if ("good-guy".equals(credentials)) {
+            public Optional<String> authenticate(BasicCredentials credentials) throws AuthenticationException {
+                if ("good-guy".equals(credentials.getUsername()) && "secret".equals(credentials.getPassword())) {
                     return Optional.of("good-guy");
                 }
-                if ("bad-guy".equals(credentials)) {
-                    throw new AuthenticationException("CRAP", new RuntimeException(""));
+                if ("bad-guy".equals(credentials.getUsername())) {
+                    throw new AuthenticationException("CRAP");
                 }
                 return Optional.absent();
             }
         };
-        config.getSingletons().add(new OAuthProvider<String>(authenticator, "realm"));
+        config.getSingletons().add(new BasicAuthProvider<>(authenticator, "realm"));
         config.getSingletons().add(new ExampleResource());
         return new LowLevelAppDescriptor.Builder(config).build();
     }
@@ -67,14 +67,14 @@ public class OAuthProviderTest extends JerseyTest {
                     .isEqualTo(401);
 
             assertThat(e.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE))
-                    .containsOnly("Bearer realm=\"realm\"");
+                    .containsOnly("Basic realm=\"realm\"");
         }
     }
 
     @Test
     public void transformsCredentialsToPrincipals() throws Exception {
         assertThat(client().resource("/test")
-                           .header(HttpHeaders.AUTHORIZATION, "Bearer good-guy")
+                           .header(HttpHeaders.AUTHORIZATION, "Basic Z29vZC1ndXk6c2VjcmV0")
                            .get(String.class))
                 .isEqualTo("good-guy");
     }
@@ -83,7 +83,7 @@ public class OAuthProviderTest extends JerseyTest {
     public void respondsToNonBasicCredentialsWith401() throws Exception {
         try {
             client().resource("/test")
-                    .header(HttpHeaders.AUTHORIZATION, "Derp WHEE")
+                    .header(HttpHeaders.AUTHORIZATION, "Derp Z29vZC1ndXk6c2VjcmV0")
                     .get(String.class);
             failBecauseExceptionWasNotThrown(UniformInterfaceException.class);
         } catch (UniformInterfaceException e) {
@@ -91,7 +91,7 @@ public class OAuthProviderTest extends JerseyTest {
                     .isEqualTo(401);
 
             assertThat(e.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE))
-                    .containsOnly("Bearer realm=\"realm\"");
+                    .containsOnly("Basic realm=\"realm\"");
         }
     }
 
@@ -99,7 +99,7 @@ public class OAuthProviderTest extends JerseyTest {
     public void respondsToExceptionsWith500() throws Exception {
         try {
             client().resource("/test")
-                    .header(HttpHeaders.AUTHORIZATION, "Bearer bad-guy")
+                    .header(HttpHeaders.AUTHORIZATION, "Basic YmFkLWd1eTpzZWNyZXQ=")
                     .get(String.class);
             failBecauseExceptionWasNotThrown(UniformInterfaceException.class);
         } catch (UniformInterfaceException e) {
