@@ -13,9 +13,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.codahale.dropwizard</groupId>
-            <artifactId>dropwizard-core</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>com.codahale.dropwizard</groupId>

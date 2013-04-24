@@ -20,7 +20,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.UnsupportedEncodingException;
 
 /**
  * A Jersey provider for Basic HTTP authentication.
@@ -70,7 +69,7 @@ public class BasicAuthProvider<T> implements InjectableProvider<Auth, Parameter>
                         }
                     }
                 }
-            } catch (UnsupportedEncodingException | IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 LOGGER.debug("Error decoding credentials", e);
             } catch (AuthenticationException e) {
                 LOGGER.warn("Error authenticating credentials", e);

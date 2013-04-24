@@ -3,9 +3,9 @@ package com.codahale.dropwizard.auth.oauth;
 import com.codahale.dropwizard.auth.Auth;
 import com.codahale.dropwizard.auth.AuthenticationException;
 import com.codahale.dropwizard.auth.Authenticator;
-import com.codahale.dropwizard.jersey.DropwizardResourceConfig;
 import com.google.common.base.Optional;
 import com.sun.jersey.api.client.UniformInterfaceException;
+import com.sun.jersey.api.core.DefaultResourceConfig;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.LowLevelAppDescriptor;
@@ -38,7 +38,7 @@ public class OAuthProviderTest extends JerseyTest {
 
     @Override
     protected AppDescriptor configure() {
-        final DropwizardResourceConfig config = new DropwizardResourceConfig(true);
+        final DefaultResourceConfig config = new DefaultResourceConfig();
         final Authenticator<String, String> authenticator = new Authenticator<String, String>() {
             @Override
             public Optional<String> authenticate(String credentials) throws AuthenticationException {
