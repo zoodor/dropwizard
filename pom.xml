@@ -28,6 +28,7 @@
         <module>dropwizard-forms</module>
         <module>dropwizard-views</module>
         <module>dropwizard-views-freemarker</module>
+        <module>dropwizard-views-jade</module>
         <module>dropwizard-views-mustache</module>
         <module>dropwizard-testing</module>
         <module>dropwizard-util</module>
