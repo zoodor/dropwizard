@@ -4,14 +4,17 @@ import com.google.common.base.Charsets;
 import com.sun.jersey.api.container.MappableContainerException;
 import de.neuland.jade4j.JadeConfiguration;
 import de.neuland.jade4j.exceptions.JadeException;
+import de.neuland.jade4j.model.JadeModel;
 import de.neuland.jade4j.template.JadeTemplate;
 import io.dropwizard.views.View;
 import io.dropwizard.views.ViewRenderer;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ws.rs.WebApplicationException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
@@ -31,7 +34,7 @@ public class JadeViewRenderer implements ViewRenderer {
 
     @Override
     public boolean isRenderable(View view) {
-        return view instanceof JadeView;
+        return view.getTemplateName().endsWith(".jade");
     }
 
     @Override
@@ -40,20 +43,12 @@ public class JadeViewRenderer implements ViewRenderer {
             final Locale locale,
             final OutputStream output) throws IOException, WebApplicationException {
 
-        if (!(view instanceof JadeView)) {
-            throw new IllegalArgumentException(
-                    format("View is not an instance of {1): {0}", view, JadeView.class));
-        }
-
+        JadeModel model = new JadeModelFactory().createModel(view);
         final Charset charset = view.getCharset().or(Charsets.UTF_8);
         try {
             final JadeTemplate template = configuration.getTemplate(view.getTemplateName());
             try (OutputStreamWriter writer = new OutputStreamWriter(output, charset)) {
-                configuration.renderTemplate(
-                        template,
-                        ((JadeView) view).getModel(),
-                        writer
-                );
+                configuration.renderTemplate(template, model, writer);
             }
         } catch (JadeException e) {
             throw new MappableContainerException(e);

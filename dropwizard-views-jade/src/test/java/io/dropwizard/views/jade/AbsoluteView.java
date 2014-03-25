@@ -5,7 +5,7 @@ import io.dropwizard.views.View;
 
 import java.util.HashMap;
 
-public class AbsoluteView extends View implements JadeView {
+public class AbsoluteView extends View {
     private JadeModel model;
 
     public AbsoluteView(String name) {
@@ -15,8 +15,4 @@ public class AbsoluteView extends View implements JadeView {
         this.model.put("name", name);
     }
 
-    @Override
-    public JadeModel getModel() {
-        return model;
-    }
 }
