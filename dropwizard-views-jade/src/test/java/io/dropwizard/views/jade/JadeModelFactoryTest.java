@@ -23,7 +23,7 @@ public class JadeModelFactoryTest {
     }
 
     @Test
-    public void createModel_shouldIncludeFieldsInCustomView() throws Exception {
+    public void createModel_shouldIncludePublicGettersInCustomView() throws Exception {
         View view = new CustomJadeView("");
 
         JadeModel model = factory.createModel(view);
@@ -32,11 +32,61 @@ public class JadeModelFactoryTest {
                 format("Model does not contain expected key: {0}", FIELD_NAME),
                 model.containsKey(FIELD_NAME)
         );
-        assertThat((String) model.get(FIELD_NAME), is(new CustomJadeView("").customStringField));
+        assertThat((String) model.get(FIELD_NAME), is(new CustomJadeView("").getCustomStringField()));
     }
 
     @Test
-    public void createModel_shouldIncludeFieldsInheritedFromCustomViews() throws Exception {
+    public void createModel_shouldExcludeGettersThatTakeParams() throws Exception {
+        View view = new CustomJadeView("") {
+            @SuppressWarnings("unused")
+            public String getWithParam(final String someParam) { return ""; }
+        };
+
+        JadeModel model = factory.createModel(view);
+
+        assertFalse(
+                format("Model contains key: {0}", "withParam"),
+                model.containsKey("withParam")
+        );
+    }
+
+    @Test
+    public void createModel_shouldExcludeMethodsWithoutGetPrefix() throws Exception {
+        View view = new CustomJadeView("") {
+            @SuppressWarnings("unused")
+            public String notAGetMethod() { return "value to exclude"; }
+        };
+
+        JadeModel model = factory.createModel(view);
+
+        assertFalse(
+                format("Model contains key: {0}", "aGetMethod"),
+                model.containsKey("aGetMethod")
+        );
+        assertFalse(
+                format("Model contains value: {0}", "value to exclude"),
+                model.containsValue("value to exclude")
+        );
+    }
+
+    @Test
+    public void createModel_shouldExcludeProtectedMethods() throws Exception {
+        final String PROTECTED_FIELD_NAME = "protected";
+        View view = new CustomJadeView("") {
+            @SuppressWarnings("unused")
+            protected String getProtected() { return ""; }
+        };
+
+        JadeModel model = factory.createModel(view);
+
+        assertFalse(
+                format("Model contains key: {0}", PROTECTED_FIELD_NAME),
+                model.containsKey(PROTECTED_FIELD_NAME)
+        );
+    }
+
+    @Test
+    public void createModel_shouldIncludeInheritedGetters() throws Exception {
         View view = new CustomJadeSubview("");
 
         JadeModel model = factory.createModel(view);
@@ -45,20 +95,7 @@ public class JadeModelFactoryTest {
                 format("Model does not contain expected key: {0}", FIELD_NAME),
                 model.containsKey(FIELD_NAME)
         );
-        assertThat((String) model.get(FIELD_NAME), is(new CustomJadeView("").customStringField));
-    }
-
-    @Test
-    public void createModel_shouldNotIncludeFieldsInheritedFromDropwizardViewClass() throws Exception {
-        final String VIEW_FIELD_NAME = "templateName";
-        View view = new CustomJadeView("");
-
-        JadeModel model = factory.createModel(view);
-
-        assertFalse(
-                format("Model contains unexpected key: {0}", VIEW_FIELD_NAME),
-                model.containsKey(VIEW_FIELD_NAME)
-        );
+        assertThat((String) model.get(FIELD_NAME), is(new CustomJadeView("").getCustomStringField()));
     }
 
     private static class CustomJadeView extends View {
@@ -66,7 +103,9 @@ public class JadeModelFactoryTest {
             super(templateName);
         }
 
-        private final String customStringField = "some value";
+        public String getCustomStringField() {
+            return "some value";
+        }
     }
 
     private static class CustomJadeSubview extends CustomJadeView {

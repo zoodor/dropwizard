@@ -8,17 +8,13 @@ import de.neuland.jade4j.model.JadeModel;
 import de.neuland.jade4j.template.JadeTemplate;
 import io.dropwizard.views.View;
 import io.dropwizard.views.ViewRenderer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ws.rs.WebApplicationException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.Locale;
-
-import static java.text.MessageFormat.format;
 
 /**
  * A {@link ViewRenderer} which renders Jade ({@code .jade}) templates.
