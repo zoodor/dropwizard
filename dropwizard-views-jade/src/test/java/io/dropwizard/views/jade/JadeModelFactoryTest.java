@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class JadeModelFactoryTest {
 
-    public final String FIELD_NAME = "customStringField";
+    public final String EXPECTED_KEY = "customStringField";
 
     public JadeModelFactory factory;
 
@@ -24,78 +24,103 @@ public class JadeModelFactoryTest {
 
     @Test
     public void createModel_shouldIncludePublicGettersInCustomView() throws Exception {
-        View view = new CustomJadeView("");
+        CustomJadeView view = new CustomJadeView("");
 
         JadeModel model = factory.createModel(view);
 
         assertTrue(
-                format("Model does not contain expected key: {0}", FIELD_NAME),
-                model.containsKey(FIELD_NAME)
+                format("Model does not contain expected key: {0}", EXPECTED_KEY),
+                model.containsKey(EXPECTED_KEY)
         );
-        assertThat((String) model.get(FIELD_NAME), is(new CustomJadeView("").getCustomStringField()));
-    }
-
-    @Test
-    public void createModel_shouldExcludeGettersThatTakeParams() throws Exception {
-        View view = new CustomJadeView("") {
-            @SuppressWarnings("unused")
-            public String getWithParam(final String someParam) { return ""; }
-        };
-
-        JadeModel model = factory.createModel(view);
-
-        assertFalse(
-                format("Model contains key: {0}", "withParam"),
-                model.containsKey("withParam")
-        );
-    }
-
-    @Test
-    public void createModel_shouldExcludeMethodsWithoutGetPrefix() throws Exception {
-        View view = new CustomJadeView("") {
-            @SuppressWarnings("unused")
-            public String notAGetMethod() { return "value to exclude"; }
-        };
-
-        JadeModel model = factory.createModel(view);
-
-        assertFalse(
-                format("Model contains key: {0}", "aGetMethod"),
-                model.containsKey("aGetMethod")
-        );
-        assertFalse(
-                format("Model contains value: {0}", "value to exclude"),
-                model.containsValue("value to exclude")
-        );
-    }
-
-    @Test
-    public void createModel_shouldExcludeProtectedMethods() throws Exception {
-        final String PROTECTED_FIELD_NAME = "protected";
-        View view = new CustomJadeView("") {
-            @SuppressWarnings("unused")
-            protected String getProtected() { return ""; }
-        };
-
-        JadeModel model = factory.createModel(view);
-
-        assertFalse(
-                format("Model contains key: {0}", PROTECTED_FIELD_NAME),
-                model.containsKey(PROTECTED_FIELD_NAME)
+        assertThat(
+                (String) model.get(EXPECTED_KEY),
+                is(view.getCustomStringField())
         );
     }
 
     @Test
     public void createModel_shouldIncludeInheritedGetters() throws Exception {
-        View view = new CustomJadeSubview("");
+        CustomJadeSubview view = new CustomJadeSubview("");
 
         JadeModel model = factory.createModel(view);
 
         assertTrue(
-                format("Model does not contain expected key: {0}", FIELD_NAME),
-                model.containsKey(FIELD_NAME)
+                format("Model does not contain expected key: {0}", EXPECTED_KEY),
+                model.containsKey(EXPECTED_KEY)
         );
-        assertThat((String) model.get(FIELD_NAME), is(new CustomJadeView("").getCustomStringField()));
+        assertThat(
+                (String) model.get(EXPECTED_KEY),
+                is(view.getCustomStringField())
+        );
+    }
+
+    @Test
+    public void createModel_shouldExcludeGettersThatTakeParams() throws Exception {
+        final String excludedKey = "withParam";
+        final String excludedValue = "value to exclude";
+        View view = new CustomJadeView("") {
+            @SuppressWarnings("unused")
+            public String getWithParam(final String someParam) {
+                return excludedValue;
+            }
+        };
+
+        JadeModel model = factory.createModel(view);
+
+        assertFalse(
+                format("Model contains key: {0}", excludedKey),
+                model.containsKey(excludedKey)
+        );
+        assertFalse(
+                format("Model contains expectedValue: {0}", excludedValue),
+                model.containsValue(excludedValue)
+        );
+    }
+
+    @Test
+    public void createModel_shouldExcludeMethodsWithoutGetPrefix() throws Exception {
+        final String excludedKey = "aGetMethod";
+        final String excludedValue = "expectedValue to exclude";
+        View view = new CustomJadeView("") {
+            @SuppressWarnings("unused")
+            public String notAGetMethod() {
+                return excludedValue;
+            }
+        };
+
+        JadeModel model = factory.createModel(view);
+
+        assertFalse(
+                format("Model contains key: {0}", excludedKey),
+                model.containsKey(excludedKey)
+        );
+        assertFalse(
+                format("Model contains expectedValue: {0}", excludedValue),
+                model.containsValue(excludedValue)
+        );
+    }
+
+    @Test
+    public void createModel_shouldExcludeProtectedMethods() throws Exception {
+        final String exludedKey = "protected";
+        final String excludedValue = "excluded value";
+        View view = new CustomJadeView("") {
+            @SuppressWarnings("unused")
+            protected String getProtected() {
+                return excludedValue;
+            }
+        };
+
+        JadeModel model = factory.createModel(view);
+
+        assertFalse(
+                format("Model contains key: {0}", exludedKey),
+                model.containsKey(exludedKey)
+        );
+        assertFalse(
+                format("Model contains expectedValue: {0}", excludedValue),
+                model.containsValue(excludedValue)
+        );
     }
 
     private static class CustomJadeView extends View {
